@@ -1,0 +1,43 @@
+package com.nzis.ignatovsoft.front.views;
+
+import com.nzis.ignatovsoft.front.controllers.TransactionCellController;
+import com.nzis.ignatovsoft.front.models.Transaction;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
+
+import java.io.IOException;
+
+public class TransactionCellFactory extends ListCell<Transaction> {
+
+    @Override
+    protected void updateItem(Transaction transaction, boolean empty) {
+        super.updateItem(transaction, empty);
+        if (empty){
+            setText(null);
+            setGraphic(null);
+        }
+        else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TransactionCell.fxml"));
+            TransactionCellController controller = new TransactionCellController(transaction);
+            loader.setController(controller);
+            setText(null);
+
+            try {
+                setGraphic(loader.load());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && !isEmpty()) {
+                    handleCellClick(transaction);
+                }
+            });
+        }
+    }
+
+    private void handleCellClick(Transaction transaction) {
+        System.out.println("Transaction CLicked!");
+    }
+
+}
