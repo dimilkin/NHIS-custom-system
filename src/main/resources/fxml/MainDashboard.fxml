@@ -57,13 +57,13 @@
         <VBox id="right_container" layoutX="568.0" layoutY="223.0" prefHeight="370.0" prefWidth="221.0"
               styleClass="details_container" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <children>
-                <Label styleClass="details_text_field" text="21,04,2022"/>
-                <Label styleClass="details_text_field" text="Екатерина"/>
-                <Label styleClass="details_text_field" text="Атанасова"/>
-                <Label styleClass="details_text_field" text="0888 555 444"/>
-                <Label styleClass="details_text_field" text="Label"/>
-                <Label styleClass="details_text_field" text="Label"/>
-                <Label styleClass="details_text_field" text="Label"/>
+                <Label fx:id="examDate" styleClass="details_text_field" text="21,04,2022"/>
+                <Label fx:id="selectedPatientName" styleClass="details_text_field" text="Екатерина"/>
+                <Label fx:id="selectedPatientFamilyName" styleClass="details_text_field" text="Атанасова"/>
+                <Label fx:id="phoneNumber" styleClass="details_text_field" text="0888 555 444"/>
+                <Label fx:id="diagnosis" styleClass="details_text_field" text="Label"/>
+                <Label fx:id="treatment" styleClass="details_text_field" text="Label"/>
+                <Label fx:id="email" styleClass="details_text_field" text="Label"/>
             </children>
         </VBox>
         <Button contentDisplay="CENTER" layoutX="478.0" layoutY="562.0" mnemonicParsing="false" styleClass="edit_button"

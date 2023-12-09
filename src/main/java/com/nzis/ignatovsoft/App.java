@@ -1,5 +1,6 @@
 package com.nzis.ignatovsoft;
 
+import com.nzis.ignatovsoft.configurations.HibernateConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,4 +24,11 @@ public class App extends Application {
         stage.setTitle("Ignatov Soft");
         stage.show();
     }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        HibernateConfig.shutdown();
+    }
 }
+

@@ -1,8 +1,14 @@
 .transaction_container {
-    -fx-background-color: #818181;
+    -fx-background-color: #454545;
     -fx-alignment: center;
+    -fx-text-fill: #ffffff;
     -fx-background-radius: 20;
     -fx-border-radius: 20;
     -fx-border-width: 2;
     -fx-border-color: lawngreen;
+}
+
+.transaction_name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
 }

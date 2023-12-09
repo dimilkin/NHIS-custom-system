@@ -9,6 +9,8 @@ module com.nzis.ignatovsoft {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.xml.crypto;
+    requires org.hibernate.orm.core;
+    requires java.naming;
 
     opens com.nzis.ignatovsoft to javafx.fxml;
     exports com.nzis.ignatovsoft;

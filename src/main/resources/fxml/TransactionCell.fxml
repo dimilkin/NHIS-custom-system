@@ -5,24 +5,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="60.0" prefWidth="400.0" styleClass="transaction_container"
+<?import java.lang.String?>
+<AnchorPane  fx:id="transactionCellPane" prefHeight="60.0" prefWidth="400.0" styleClass="transaction_container"
             stylesheets="@../styles/transaction_cell.css" xmlns="http://javafx.com/javafx/21.0.1"
             xmlns:fx="http://javafx.com/fxml/1">
     <children>
 
-        <Label fx:id="transaction_cell_first_name" layoutX="38.0" layoutY="22.0" text="Екатерина">
+        <Label fx:id="transaction_cell_first_name" layoutX="38.0" layoutY="22.0"
+               stylesheets="@../styles/transaction_cell.css" text="Екатерина">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <styleClass>
+                <String fx:value="trans"/>
+                <String fx:value="transaction_name"/>
+            </styleClass>
+        </Label>
+        <Label fx:id="transaction_cell_family_name" layoutX="124.0" layoutY="22.0" styleClass="transaction_name"
+               text="Симеонова">
             <font>
                 <Font size="14.0"/>
             </font>
         </Label>
-        <Label fx:id="transaction_cell_family_name" layoutX="124.0" layoutY="22.0" text="Симеонова">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </Label>
-        <Label fx:id="transaction_cell_time" layoutX="248.0" layoutY="22.0" text="14:35"/>
-        <Label fx:id="transaction_cell_date" layoutX="311.0" layoutY="22.0" text="22.04.2222">
+        <Label fx:id="transaction_cell_time" layoutX="248.0" layoutY="22.0" styleClass="transaction_name" text="14:35"/>
+        <Label fx:id="transaction_cell_date" layoutX="311.0" layoutY="22.0" styleClass="transaction_name"
+               text="22.04.2222">
             <font>
                 <Font name="System Bold" size="13.0"/>
             </font>

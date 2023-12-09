@@ -1,6 +1,7 @@
 package com.nzis.ignatovsoft.front.views;
 
 import com.nzis.ignatovsoft.front.controllers.TransactionCellController;
+import com.nzis.ignatovsoft.front.events.TransactionEvent;
 import com.nzis.ignatovsoft.front.models.Transaction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
@@ -31,6 +32,7 @@ public class TransactionCellFactory extends ListCell<Transaction> {
             setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && !isEmpty()) {
                     handleCellClick(transaction);
+                    fireEvent(new TransactionEvent(transaction));
                 }
             });
         }

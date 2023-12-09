@@ -4,70 +4,65 @@ public class Transaction {
 
     private String name;
     private String familyName;
+    private String timeOfExam;
     private String dateOfExam;
     private String phone;
     private String diagnosis;
     private String procedure;
     private String address;
+    private boolean isTransactionSuccesful;
 
     public Transaction(String name, String phone) {
         this.name = name;
         this.phone = phone;
     }
 
-    public String getName() {
-        return name;
+
+    public Transaction(String name, String familyName, String dateOfExam, String timeOfExam, String phone, String diagnosis, String procedure, String address, boolean isTransactionSuccesful) {
+        this.name = name;
+        this.familyName = familyName;
+        this.dateOfExam = dateOfExam;
+        this.timeOfExam = timeOfExam;
+        this.phone = phone;
+        this.diagnosis = diagnosis;
+        this.procedure = procedure;
+        this.address = address;
+        this.isTransactionSuccesful = isTransactionSuccesful;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getFamilyName() {
         return familyName;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public String getTimeOfExam() {
+        return timeOfExam;
     }
 
     public String getDateOfExam() {
         return dateOfExam;
     }
 
-    public void setDateOfExam(String dateOfExam) {
-        this.dateOfExam = dateOfExam;
-    }
-
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
     public String getProcedure() {
         return procedure;
-    }
-
-    public void setProcedure(String procedure) {
-        this.procedure = procedure;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public boolean isTransactionSuccesful() {
+        return isTransactionSuccesful;
     }
 }
