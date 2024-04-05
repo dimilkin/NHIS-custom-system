@@ -3,8 +3,11 @@ package com.nzis.ignatovsoft.front.controllers;
 import com.nzis.ignatovsoft.front.events.TransactionEvent;
 import com.nzis.ignatovsoft.front.models.Transaction;
 import com.nzis.ignatovsoft.front.views.TransactionCellFactory;
+import com.nzis.ignatovsoft.services.NetworkService;
+import com.nzis.ignatovsoft.services.NetworkServiceImpl;
 import com.nzis.ignatovsoft.services.TestDataService;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
@@ -20,13 +23,25 @@ public class MaindashboardController implements Initializable {
     public Label diagnosis;
     public Label treatment;
     public Label email;
+    public Button change_btn;
     private TestDataService testDataService = new TestDataService();
+
+    private NetworkService networkService = new NetworkServiceImpl();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         transactionsList.setItems(testDataService.getAllTransactions());
         transactionsList.setCellFactory(e -> new TransactionCellFactory());
         transactionsList.addEventHandler(TransactionEvent.TRANSACTION_SELECTED, this::handleTransactionEvent);
+
+            change_btn.setOnMouseClicked(v -> {
+
+                try {
+                    networkService.authenticate();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
     }
 
     private void handleTransactionEvent(TransactionEvent event) {

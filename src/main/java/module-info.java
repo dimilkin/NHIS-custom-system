@@ -9,15 +9,17 @@ module com.nzis.ignatovsoft {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.xml.crypto;
-    requires org.hibernate.orm.core;
     requires java.naming;
+    requires java.net.http;
+    requires jakarta.xml.bind;
 
     opens com.nzis.ignatovsoft to javafx.fxml;
+    opens com.nzis.ignatovsoft.models.nhis to jakarta.xml.bind;
+    opens com.nzis.ignatovsoft.services to javafx.fxml;
+
     exports com.nzis.ignatovsoft;
     exports com.nzis.ignatovsoft.services;
-    exports com.nzis.ignatovsoft.models;
     exports com.nzis.ignatovsoft.front.models;
     exports com.nzis.ignatovsoft.front.controllers;
-    opens com.nzis.ignatovsoft.services to javafx.fxml;
-    exports com.nzis.ignatovsoft.models.openexam;
+    exports com.nzis.ignatovsoft.models.nhis;
 }

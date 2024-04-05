@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<nhis:message xmlns:nhis="https://www.his.bg">
+    <nhis:header>
+        <nhis:sender value="0">Milkin</nhis:sender>
+        <nhis:senderId value="14679761900081799553461318046533514527298165331163272806278231830759710479916758639">007</nhis:senderId>
+        <nhis:senderISName value="string">Dimitar</nhis:senderISName>
+        <nhis:recipient value="0">NHIS</nhis:recipient>
+        <nhis:recipientId value="string">005</nhis:recipientId>
+        <nhis:messageId value="string">123</nhis:messageId>
+        <nhis:messageType value="string">EOO2</nhis:messageType>
+        <nhis:createdOn value="2023-12-16T16:29:40.882Z">2023-12-23T15:30:40.882Z</nhis:createdOn>
+    </nhis:header>
+    <nhis:contents>
+        <nhis:examination>
+            <nhis:lrn value="string">Hello</nhis:lrn>
+            <nhis:openDate value="2023-12-16T16:29:40.882Z">2023-12-23T15:30:40.882Z</nhis:openDate>
+            <nhis:class value="string">0</nhis:class>
+            <nhis:financingSource value="string">chasten</nhis:financingSource>
+            <nhis:rhifAreaNumber value="string">4565</nhis:rhifAreaNumber>
+        </nhis:examination>
+        <nhis:subject>
+            <nhis:identifierType value="0">0</nhis:identifierType>
+            <nhis:identifier value="string">3444</nhis:identifier>
+            <nhis:nhifInsuranceNumber value="string">567778654</nhis:nhifInsuranceNumber>
+            <nhis:birthDate value="2023-12-16T16:29:40.882Z">2001-12-23T15:30:40.882Z</nhis:birthDate>
+            <nhis:gender value="Male">Male</nhis:gender>
+            <nhis:name>
+                <nhis:given value="s0koxnDXJG6zR5dBXBhuOPN-7rQhaLgRjljIP6J Q Zwln5UedDCXmGqDajGS4sCM2XK8gcOOQs">Kole</nhis:given>
+                <nhis:middle value="H">Poluchi</nhis:middle>
+                <nhis:family value="mU8b7S1otPFxX  MWZbtqsd4 YkLJ8tPiXQj7NIoZoXvaKJGee5vwEVgD6HOq4W&apos;&apos;FmSGK75-wWRvv-bPZ">Bonus</nhis:family>
+            </nhis:name>
+            <nhis:address>
+                <nhis:country value="string">BGN</nhis:country>
+                <nhis:county value="string">Sofia</nhis:county>
+                <nhis:city value=",.-TKlGfFeegLVJYiKGOubpcAfMhc">Sofia</nhis:city>
+                <nhis:line value="string">Drujba II</nhis:line>
+            </nhis:address>
+            <nhis:phone value="4552912442052550722875293533295175109167763040213114810002489497348408442290391350836356269054245273">0885554554544</nhis:phone>
+            <nhis:email value="user@example.com">test@test.vg</nhis:email>
+            <nhis:nationality value="string">BGN</nhis:nationality>
+        </nhis:subject>
+        <nhis:performer>
+            <nhis:pmi value="65348848094627256676324">Koleto</nhis:pmi>
+            <nhis:qualification value="string" nhifCode="string">developer</nhis:qualification>
+            <nhis:practiceNumber value="1222923164">pak toi</nhis:practiceNumber>
+            <nhis:role value="string">bash shefa</nhis:role>
+        </nhis:performer>
+    </nhis:contents>
+</nhis:message>

@@ -1,0 +1,57 @@
+<nhis:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nhis="https://www.his.bg" xsi:schemaLocation="https://www.his.bg https://www.his.bg/api/v1/NHIS-X001.xsd">
+    <nhis:header>
+        <nhis:sender value="1"/>
+        <nhis:senderId value="220010652"/>
+        <nhis:senderISName value="IgnatovSoft"/>
+        <nhis:recipient value="4"/>
+        <nhis:recipientId value="NHIS"/>
+        <nhis:messageId value="c80c6c30-432d-4d3b-9e1e-03168b1feae2"/>
+        <nhis:messageType value="X001"/>
+        <nhis:createdOn value="2023-12-352T04:28:53"/>
+    </nhis:header>
+    <nhis:contents>
+        <nhis:examination>
+            <nhis:lrn value="0897457c-3518-4760-862d-22d4acdd3ef7"/>
+            <nhis:openDate value="2023-12-352T04:28:53"/>
+            <nhis:class value="1"/>
+            <nhis:financingSource value="4"/>
+            <nhis:rhifAreaNumber value="2201"/>
+        </nhis:examination>
+        <nhis:subject>
+            <nhis:identifierType value="1"/>
+            <nhis:identifier value="9101017224"/>
+            <nhis:birthDate value="1991-01-01"/>
+            <nhis:gender value="1"/>
+            <nhis:name>
+                <nhis:given value="Dimitar"/>
+                <nhis:family value="Milkin"/>
+            </nhis:name>
+            <nhis:address>
+                <nhis:country value="BG"/>
+                <nhis:county value="SOF"/>
+                <nhis:city value="Sofia"/>
+                <nhis:line value="Drujba II"/>
+                <nhis:postalCode value="1000"/>
+            </nhis:address>
+            <nhis:nationality value="BG"/>
+            <nhis:phone value="0888555444"/>
+            <nhis:email value="test@test.com"/>
+        </nhis:subject>
+        <nhis:performer>
+            <nhis:pmi value="220010652"/>
+            <nhis:pmiDeputy value="null"/>
+            <nhis:qualification value="1001" nhifCode="null"/>
+            <nhis:practiceNumber value="220010652"/>
+            <nhis:role value="1"/>
+            <nhis:accompanying>
+                <nhis:pmi value="null"/>
+                <nhis:qualification value="null" nhifCode="null"/>
+            </nhis:accompanying>
+            <nhis:phone value="0888545454"/>
+            <nhis:email value="test@test2.com"/>
+            <nhis:rhifAreaNumber value="null"/>
+            <nhis:nhifNumber value="null"/>
+        </nhis:performer>
+    </nhis:contents>
+    <Signature/>
+</nhis:message>
