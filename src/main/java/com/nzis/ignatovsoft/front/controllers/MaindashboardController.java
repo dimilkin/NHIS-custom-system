@@ -3,6 +3,7 @@ package com.nzis.ignatovsoft.front.controllers;
 import com.nzis.ignatovsoft.front.events.TransactionEvent;
 import com.nzis.ignatovsoft.front.models.Transaction;
 import com.nzis.ignatovsoft.front.views.TransactionCellFactory;
+import com.nzis.ignatovsoft.services.AuthenticationService;
 import com.nzis.ignatovsoft.services.NetworkService;
 import com.nzis.ignatovsoft.services.NetworkServiceImpl;
 import com.nzis.ignatovsoft.services.TestDataService;
@@ -27,6 +28,7 @@ public class MaindashboardController implements Initializable {
     private TestDataService testDataService = new TestDataService();
 
     private NetworkService networkService = new NetworkServiceImpl();
+    AuthenticationService authenticationService = new AuthenticationService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,7 +39,9 @@ public class MaindashboardController implements Initializable {
             change_btn.setOnMouseClicked(v -> {
 
                 try {
-                    networkService.authenticate();
+                    String token = authenticationService.getAccessToken();
+//                    String result = networkService.sendExaminationOpenRequest(token);
+                    System.out.println(token);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

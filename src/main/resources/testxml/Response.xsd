@@ -1,0 +1,11 @@
+<nhis:message schemaLocation="https://www.his.bg/api/v1/NHIS-S001.xsd" xmlns:nhis="https://www.his.bg">
+    <nhis:contents>
+        <nhis:accessToken
+                value="qdOEmehD9nyZRJs6FHAzXr-gOjZrlDxTCwal4tgLWgsweBH6jdIkmSF4jxAddOVnuV8FtKEdJjoTSZGW1PsrSw"/>
+        <nhis:tokenType value="Bearer"/>
+        <nhis:expiresIn value="7200"/>
+        <nhis:issuedOn value="2024-04-30T22:25:38.1558203Z"/>
+        <nhis:expiresOn value="2024-05-01T00:25:38.1558203Z"/>
+        <nhis:refreshToken value="xwJ9tFgxXN9KIjByiaTDdCPeyxmXcg8_7mZX224RhVI"/>
+    </nhis:contents>
+</nhis:message>

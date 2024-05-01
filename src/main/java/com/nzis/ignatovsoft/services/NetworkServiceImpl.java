@@ -1,5 +1,6 @@
 package com.nzis.ignatovsoft.services;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,30 +13,33 @@ import static com.nzis.ignatovsoft.Constants.OPEN_EXAMINATION_PATH;
 
 public class NetworkServiceImpl implements NetworkService {
 
-    TestDataService testDataService;
-
-    public NetworkServiceImpl() {
-        testDataService = new TestDataService();
-    }
-
+    private DigitalSigneeImpl digitalSignee = new DigitalSigneeImpl();
     @Override
-    public void sendExaminationOpenRequest() {
+    public String sendExaminationOpenRequest(String authToken) {
 
-    }
-
-    @Override
-    public void authenticate() {
-        String xmlBody = request();
+        String requestPayload = request();
+        String signedRequest = digitalSignee.signXml(requestPayload);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(MAIN_PATH + OPEN_EXAMINATION_PATH))
-                .header("Content-Type", "application/xml") // Set appropriate content type
-                .header("Authorization", "Bearer 6cY1nEx9OEVlgpRyRq5ujtmtq9UveN7jXfDcCpj5oGcrAaxs1TIhRybI0Z7E6YPxBCT7FN07BLuJAXmNSFd_Cw")
-                .POST(HttpRequest.BodyPublishers.ofString(xmlBody))
+                .uri(URI.create("https://ptest-api.his.bg/v1/eexamination/examination/open"))
+                .header("Content-Type", "application/xml")
+                .header("Authorization", "Bearer " + authToken)
+                .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
                 .build();
 
-        CompletableFuture<HttpResponse<String>> responseFuture =
-                client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        try {
+            HttpResponse<String> response = client.send(
+                    request,
+                    HttpResponse.BodyHandlers.ofString()
+            );
+            String responseBody = response.body();
+            return responseBody;
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
 
@@ -95,7 +99,6 @@ public class NetworkServiceImpl implements NetworkService {
                 "            <nhis:nhifNumber value=\"null\"/>\n" +
                 "        </nhis:performer>\n" +
                 "    </nhis:contents>\n" +
-                "    <Signature/>\n" +
                 "</nhis:message>";
     }
 
