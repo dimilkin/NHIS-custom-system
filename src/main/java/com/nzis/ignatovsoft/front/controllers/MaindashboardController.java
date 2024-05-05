@@ -40,8 +40,8 @@ public class MaindashboardController implements Initializable {
 
                 try {
                     String token = authenticationService.getAccessToken();
-//                    String result = networkService.sendExaminationOpenRequest(token);
-                    System.out.println(token);
+                    String result = networkService.sendExaminationOpenRequest(token);
+                    System.out.println(result);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

@@ -1,11 +1,28 @@
-<nhis:message schemaLocation="https://www.his.bg/api/v1/NHIS-S001.xsd" xmlns:nhis="https://www.his.bg">
-    <nhis:contents>
-        <nhis:accessToken
-                value="qdOEmehD9nyZRJs6FHAzXr-gOjZrlDxTCwal4tgLWgsweBH6jdIkmSF4jxAddOVnuV8FtKEdJjoTSZGW1PsrSw"/>
-        <nhis:tokenType value="Bearer"/>
-        <nhis:expiresIn value="7200"/>
-        <nhis:issuedOn value="2024-04-30T22:25:38.1558203Z"/>
-        <nhis:expiresOn value="2024-05-01T00:25:38.1558203Z"/>
-        <nhis:refreshToken value="xwJ9tFgxXN9KIjByiaTDdCPeyxmXcg8_7mZX224RhVI"/>
-    </nhis:contents>
-</nhis:message>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:nhis="https://www.his.bg" targetNamespace="https://www.his.bg" elementFormDefault="qualified" version="1.6.2">
+<xs:include schemaLocation="https://www.his.bg/api/v1/NHIS-Entities.xsd"/>
+<xs:element name="message" type="nhis:messageS001"/>
+<!--  Define all elements in 'Message' block  -->
+<xs:complexType name="messageS001">
+    <xs:complexContent>
+        <xs:extension base="nhis:messageBase">
+            <xs:sequence>
+                <xs:element name="contents" type="nhis:contentsS001"/>
+            </xs:sequence>
+        </xs:extension>
+    </xs:complexContent>
+</xs:complexType>
+<!--  Define all elements in 'Contents' block  -->
+<xs:complexType name="contentsS001">
+    <xs:complexContent>
+        <xs:extension base="nhis:contentsBase">
+            <xs:sequence>
+                <xs:element name="accessToken" type="nhis:accessTokenBase"/>
+                <xs:element name="tokenType" type="nhis:tokenTypeBase"/>
+                <xs:element name="expiresIn" type="nhis:expiresInBase"/>
+                <xs:element name="issuedOn" type="nhis:issuedOnBase"/>
+                <xs:element name="expiresOn" type="nhis:expiresOnBase"/>
+            </xs:sequence>
+        </xs:extension>
+    </xs:complexContent>
+</xs:complexType>
+</xs:schema>

@@ -16,7 +16,7 @@ module com.nzis.ignatovsoft {
     opens com.nzis.ignatovsoft to javafx.fxml;
     opens com.nzis.ignatovsoft.models.nhis to jakarta.xml.bind;
     opens com.nzis.ignatovsoft.services to javafx.fxml;
-    opens com.nzis.ignatovsoft.models.generated.https.www_his to jakarta.xml.bind;
+    opens com.nzis.ignatovsoft.models.nhis.auth to jakarta.xml.bind;
 
     exports com.nzis.ignatovsoft;
     exports com.nzis.ignatovsoft.services;

@@ -32,15 +32,15 @@ import java.util.List;
 import static com.nzis.ignatovsoft.Constants.pkcs11Path;
 
 
-public class DigitalSigneeImpl {
+public class DigitalSignatureImpl {
 
-    public DigitalSigneeImpl() {
+    public DigitalSignatureImpl() {
     }
 
-    public String signXml(String document){
+    public String signXml(String document) {
         try {
             return signedXml(document);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
@@ -68,7 +68,6 @@ public class DigitalSigneeImpl {
         // Assuming there is only one entry in the KeyStore
         String alias = ks.aliases().nextElement();
         PrivateKey privateKey = (PrivateKey) ks.getKey(alias, pin);
-//        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
         KeyStore.PrivateKeyEntry keyEntry = (KeyStore.PrivateKeyEntry) ks.getEntry(alias, new KeyStore.PasswordProtection(pin));
         X509Certificate cert = (X509Certificate) keyEntry.getCertificate();
         PublicKey publicKey = cert.getPublicKey();
@@ -87,7 +86,6 @@ public class DigitalSigneeImpl {
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xmlDocument.getBytes()));
 
-
 // Create a DOMSignContext and specify the RSA PrivateKey and
 // location of the resulting XMLSignature's parent element.
         DOMSignContext dsc = new DOMSignContext
@@ -104,7 +102,6 @@ public class DigitalSigneeImpl {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer trans = tf.newTransformer();
         trans.transform(new DOMSource(doc), new StreamResult(sw));
-
 
         return sw.toString();
     }

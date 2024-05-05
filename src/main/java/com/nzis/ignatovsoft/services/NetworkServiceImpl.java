@@ -5,15 +5,11 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.concurrent.CompletableFuture;
-
-import static com.nzis.ignatovsoft.Constants.MAIN_PATH;
-import static com.nzis.ignatovsoft.Constants.OPEN_EXAMINATION_PATH;
 
 
 public class NetworkServiceImpl implements NetworkService {
 
-    private DigitalSigneeImpl digitalSignee = new DigitalSigneeImpl();
+    private DigitalSignatureImpl digitalSignee = new DigitalSignatureImpl();
     @Override
     public String sendExaminationOpenRequest(String authToken) {
 
