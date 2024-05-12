@@ -7,4 +7,6 @@ public class Constants {
     public static String AUTH_PATH_TOKEN = "https://ptest-auth.his.bg/token";
     public static String pkcs11Path = "src/main/resources/configs/pkcs11.cfg";
 
+    public static String REQUEST_CODE_X001 = "X001";
+
 }

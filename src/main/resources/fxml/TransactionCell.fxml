@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
@@ -38,7 +37,5 @@
               startY="15.0" stroke="GREEN"/>
         <Line fx:id="transaction_cell_line_two" endX="75.0" endY="-15.0" layoutX="160.0" layoutY="30.0" startX="75.0"
               startY="15.0" stroke="GREEN"/>
-        <FontAwesomeIconView id="cell_arrow" fill="GREEN" glyphName="LONG_ARROW_DOWN" layoutX="14.0" layoutY="38.0"
-                             size="20"/>
     </children>
 </AnchorPane>
