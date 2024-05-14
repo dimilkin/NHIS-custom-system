@@ -67,18 +67,16 @@ public class DigitalSignatureImpl {
 
         // Assuming there is only one entry in the KeyStore
         String alias = ks.aliases().nextElement();
-        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, pin);
         KeyStore.PrivateKeyEntry keyEntry = (KeyStore.PrivateKeyEntry) ks.getEntry(alias, new KeyStore.PasswordProtection(pin));
         X509Certificate cert = (X509Certificate) keyEntry.getCertificate();
-        PublicKey publicKey = cert.getPublicKey();
 
 // Create the KeyInfo containing the X509Data.
-        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyInfoFactory keyInfoFactory = fac.getKeyInfoFactory();
         List x509Content = new ArrayList();
         x509Content.add(cert.getSubjectX500Principal().getName());
         x509Content.add(cert);
-        X509Data xd = kif.newX509Data(x509Content);
-        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(xd));
+        X509Data xd = keyInfoFactory.newX509Data(x509Content);
+        KeyInfo ki = keyInfoFactory.newKeyInfo(Collections.singletonList(xd));
 
         // Instantiate the document to be signed.
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -86,15 +84,15 @@ public class DigitalSignatureImpl {
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xmlDocument.getBytes()));
 
-// Create a DOMSignContext and specify the RSA PrivateKey and
-// location of the resulting XMLSignature's parent element.
+        // Create a DOMSignContext and specify the RSA PrivateKey and
+        // location of the resulting XMLSignature's parent element.
         DOMSignContext dsc = new DOMSignContext
                 (keyEntry.getPrivateKey(), doc.getDocumentElement());
 
-// Create the XMLSignature, but don't sign it yet.
+        // Create the XMLSignature, but don't sign it yet.
         XMLSignature signature = fac.newXMLSignature(si, ki);
 
-// Marshal, generate, and sign the enveloped signature.
+        // Marshal, generate, and sign the enveloped signature.
         signature.sign(dsc);
 
         // Output the resulting document.

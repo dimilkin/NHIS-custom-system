@@ -1,5 +1,7 @@
 package com.nzis.ignatovsoft.nhis.services.mappers;
 
+import com.nzis.ignatovsoft.configurations.application.DoctorInfo;
+import com.nzis.ignatovsoft.dtos.PatientDTO;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
 import com.nzis.ignatovsoft.nhis.models.nhis.x001.ContentsX001;
 import com.nzis.ignatovsoft.nhis.models.nhis.x001.Examination;
@@ -20,9 +22,19 @@ public class InitialExamOpenerMarshaling {
     public InitialExamOpenerMarshaling() {
     }
 
-    private String marshalRequestBody () throws DatatypeConfigurationException, JAXBException {
-        ContentsX001 body = generateContents();
-        Header header = generateHeaders();
+    public String getMarshaledRequestBody (PatientDTO patientDTO){
+        try {
+            return marshalRequestBody(patientDTO);
+        } catch (DatatypeConfigurationException | JAXBException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String marshalRequestBody (PatientDTO patientDTO) throws DatatypeConfigurationException, JAXBException {
+        DoctorInfo doctorInfo = new DoctorInfo();
+        ContentsX001 body = generateContents(patientDTO
+        );
+        Header header = generateHeaders(doctorInfo);
         MessageX001 messageX001 = new MessageX001();
         messageX001.setContents(body);
         messageX001.setHeader(header);
@@ -37,7 +49,7 @@ public class InitialExamOpenerMarshaling {
         return sw.toString();
     }
 
-    private Header generateHeaders() {
+    private Header generateHeaders(DoctorInfo doctorInfo) {
         Header header = new Header();
 
         MessageSender sender = new MessageSender();
@@ -45,7 +57,7 @@ public class InitialExamOpenerMarshaling {
         header.setSender(sender);
 
         MessageSenderId senderId = new MessageSenderId();
-        senderId.setValue("2400000354");
+        senderId.setValue(doctorInfo.getDoctorsId());
         header.setSenderId(senderId);
 
         MessageSenderISName senderISName = new MessageSenderISName();
@@ -75,10 +87,11 @@ public class InitialExamOpenerMarshaling {
         return header;
     }
 
-    private ContentsX001 generateContents() throws DatatypeConfigurationException {
+    private ContentsX001 generateContents(PatientDTO patientDTO) throws DatatypeConfigurationException {
         Examination examination = generateExamination();
-        MedicalPractitionerWithAccompanying performer = generatePerformer();
-        Patient subject = generateSubject();
+        DoctorInfo doctorInfo = new DoctorInfo();
+        MedicalPractitionerWithAccompanying performer = generatePerformer(doctorInfo);
+        Patient subject = generateSubject(patientDTO);
 
         ContentsX001 contentsX001 = new ContentsX001();
         contentsX001.setExamination(examination);
@@ -112,7 +125,7 @@ public class InitialExamOpenerMarshaling {
         return examination;
     }
 
-    private MedicalPractitionerWithAccompanying generatePerformer () {
+    private MedicalPractitionerWithAccompanying generatePerformer (DoctorInfo doctorInfo) {
         MedicalPractitionerWithAccompanying performer = new MedicalPractitionerWithAccompanying();
 
         EmailBase emailBase = new EmailBase();
@@ -126,7 +139,7 @@ public class InitialExamOpenerMarshaling {
         performer.setNhifNumber(null);
 
         PmiBase pmiBase = new PmiBase();
-        pmiBase.setValue("2400000354");
+        pmiBase.setValue(doctorInfo.getDoctorsId());
         performer.setPmi(pmiBase);
 
         QualificationBase qualificationBase = new QualificationBase();
@@ -137,7 +150,7 @@ public class InitialExamOpenerMarshaling {
         performer.setPmiDeputy(null);
 
         PracticeNumberBase practiceNumberBase = new PracticeNumberBase();
-        practiceNumberBase.setValue("2400000354");
+        practiceNumberBase.setValue(doctorInfo.getDoctorsId());
         performer.setPracticeNumber(practiceNumberBase);
 
         performer.setRhifAreaNumber(null);
@@ -149,49 +162,49 @@ public class InitialExamOpenerMarshaling {
         return performer;
     }
 
-    private Patient generateSubject () throws DatatypeConfigurationException {
+    private Patient generateSubject (PatientDTO patientDTO) throws DatatypeConfigurationException {
 
         Patient patient = new Patient();
 
         IdentifierTypeBase identifierTypeBase = new IdentifierTypeBase();
-        identifierTypeBase.setValue("1");
+        identifierTypeBase.setValue(patientDTO.getIdentifierType());
         patient.setIdentifierType(identifierTypeBase);
 
         IdentifierBase identifierBase = new IdentifierBase();
-        identifierBase.setValue("9101127242");
+        identifierBase.setValue(patientDTO.getIdentifierValue());
         patient.setIdentifier(identifierBase);
 
         BirthDateBase birthDateBase = new BirthDateBase();
-        String dateTimeString = "1991-01-12T17:05:45.678Z";
+        String dateTimeString = patientDTO.getBirthDay(); //"1991-01-12T17:05:45.678Z";
         XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateTimeString);
         birthDateBase.setValue(date2);
         patient.setBirthDate(birthDateBase);
 
         GenderBase genderBase = new GenderBase();
-        genderBase.setValue("1");
+        genderBase.setValue(patientDTO.getGender());
         patient.setGender(genderBase);
 
         HumanNameBase nameBase = new HumanNameBase();
         FamilyNameBase familyNameBase = new FamilyNameBase();
-        familyNameBase.setValue("Милкин");
+        familyNameBase.setValue(patientDTO.getLastname());
         nameBase.setFamily(familyNameBase);
         nameBase.setMiddle(null);
         GivenNameBase givenNameBase = new GivenNameBase();
-        givenNameBase.setValue("Димитър");
+        givenNameBase.setValue(patientDTO.getFirstName());
         nameBase.setGiven(givenNameBase);
         patient.setName(nameBase);
 
         AddressBase addressBase = new AddressBase();
         CountryCodeBase countryCodeBase = new CountryCodeBase();
-        countryCodeBase.setValue("BG");
+        countryCodeBase.setValue(patientDTO.getAddressCountry());
         addressBase.setCountry(countryCodeBase);
 
         CountyBase countyBase = new CountyBase();
-        countyBase.setValue("SOF");
+        countyBase.setValue(patientDTO.getAddressCounty());
         addressBase.setCounty(countyBase);
 
         CityBase cityBase = new CityBase();
-        cityBase.setValue("Sofia");
+        cityBase.setValue(patientDTO.getAddressCity());
         addressBase.setCity(cityBase);
         addressBase.setLine(null);
         addressBase.setPostalCode(null);

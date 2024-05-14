@@ -35,17 +35,9 @@ public class MaindashboardController implements Initializable {
         transactionsList.setItems(testDataService.getAllTransactions());
         transactionsList.setCellFactory(e -> new TransactionCellFactory());
         transactionsList.addEventHandler(TransactionEvent.TRANSACTION_SELECTED, this::handleTransactionEvent);
-
-            change_btn.setOnMouseClicked(v -> {
-
-                try {
-                    String token = authenticationService.getAccessToken();
-                    String result = networkService.sendExaminationOpenRequest(token);
-                    System.out.println(result);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
+        change_btn.setOnMouseClicked(v -> {
+            System.out.println("Not implemented yet");
+        });
     }
 
     private void handleTransactionEvent(TransactionEvent event) {

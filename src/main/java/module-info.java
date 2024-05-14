@@ -27,4 +27,5 @@ module com.nzis.ignatovsoft {
     exports com.nzis.ignatovsoft.front.controllers;
     exports com.nzis.ignatovsoft.nhis.models.nhis;
     exports com.nzis.ignatovsoft.nhis.models.generated;
+    exports com.nzis.ignatovsoft.dtos;
 }
