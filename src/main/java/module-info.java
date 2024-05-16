@@ -13,6 +13,8 @@ module com.nzis.ignatovsoft {
     requires java.naming;
     requires java.net.http;
     requires jakarta.xml.bind;
+    requires org.hibernate.orm.core;
+    requires jakarta.persistence;
 
     opens com.nzis.ignatovsoft to javafx.fxml;
     opens com.nzis.ignatovsoft.nhis.models.nhis to jakarta.xml.bind;
@@ -20,6 +22,7 @@ module com.nzis.ignatovsoft {
     opens com.nzis.ignatovsoft.nhis.models.nhis.auth to jakarta.xml.bind;
     opens com.nzis.ignatovsoft.nhis.models.nhis.x001 to jakarta.xml.bind;
     opens com.nzis.ignatovsoft.nhis.models.generated to org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.database.models to org.hibernate.orm.core;
 
     exports com.nzis.ignatovsoft;
     exports com.nzis.ignatovsoft.nhis.services;

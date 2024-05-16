@@ -4,25 +4,30 @@
 <hibernate-configuration>
     <session-factory>
         <!-- JDBC Database connection settings -->
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost/YOUR_DATABASE</property>
-        <property name="connection.username">YOUR_USERNAME</property>
-        <property name="connection.password">YOUR_PASSWORD</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">milkinis</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:4567/Astraia</property>
+        <property name="hibernate.default_schema">healthcare</property>
+
+
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>
 
         <!-- Select our SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">none</property>
 
         <!-- Mention your entity classes here -->
-        <mapping class="com.yourapp.YourEntityClass"/>
+        <mapping class="com.nzis.ignatovsoft.database.models.PatientDbModel"/>
         <!-- Add more mapping classes if needed -->
     </session-factory>
 </hibernate-configuration>
+
+

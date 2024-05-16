@@ -27,9 +27,6 @@ public class MaindashboardController implements Initializable {
     public Button change_btn;
     private TestDataService testDataService = new TestDataService();
 
-    private NetworkService networkService = new NetworkServiceImpl();
-    AuthenticationService authenticationService = new AuthenticationService();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         transactionsList.setItems(testDataService.getAllTransactions());
