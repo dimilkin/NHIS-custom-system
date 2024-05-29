@@ -8,8 +8,8 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">milkinis</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:4567/Astraia</property>
-        <property name="hibernate.default_schema">healthcare</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:4567/Local</property>
+        <property name="hibernate.default_schema">local</property>
 
 
 
@@ -25,7 +25,7 @@
         <property name="hbm2ddl.auto">none</property>
 
         <!-- Mention your entity classes here -->
-        <mapping class="com.nzis.ignatovsoft.database.astraiadb.models.AstraiaPatient"/>
+        <mapping class="com.nzis.ignatovsoft.database.localdb.models.PatientDbModel"/>
         <!-- Add more mapping classes if needed -->
     </session-factory>
 </hibernate-configuration>

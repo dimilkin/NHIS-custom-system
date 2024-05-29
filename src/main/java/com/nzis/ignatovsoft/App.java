@@ -1,18 +1,28 @@
 package com.nzis.ignatovsoft;
 
-import com.nzis.ignatovsoft.configurations.HibernateConfig;
+import com.nzis.ignatovsoft.configurations.application.HibernateConfigForAstraia;
+import com.nzis.ignatovsoft.configurations.application.HibernateConfigForLocalDB;
+import com.nzis.ignatovsoft.database.astraiadb.trigers.DatabaseListener;
+import com.nzis.ignatovsoft.database.astraiadb.trigers.TriggerCreator;
+import com.nzis.ignatovsoft.database.astraiadb.trigers.TriggerFunctionCreator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class App extends Application {
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainDashboard.fxml"));
         Scene scene;
+
+        startDbTrigers();
+        listenForDBChanges();
 
         try {
             scene = new Scene(loader.load());
@@ -25,10 +35,45 @@ public class App extends Application {
         stage.show();
     }
 
+    private void listenForDBChanges() {
+        new Thread(() -> {
+            DatabaseListener databaseListener = new DatabaseListener();
+            try {
+                databaseListener.listenForDatabaseChanges();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     @Override
     public void stop() throws Exception {
         super.stop();
-//        HibernateConfig.shutdown();
+        HibernateConfigForLocalDB.shutdowLocalDbSessionFactory();
+        HibernateConfigForAstraia.shutdownAstraiaSessionFactory();
+    }
+
+    private void startDbTrigers() {
+        Session session = HibernateConfigForAstraia.getSessionFactoryForAstraia().openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+
+            // Create trigger function
+            TriggerFunctionCreator.createTriggerFunction(session);
+
+            // Create trigger
+            TriggerCreator.createTrigger(session);
+
+            transaction.commit();
+            System.out.println("Trigger function and trigger created successfully.");
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 }
 

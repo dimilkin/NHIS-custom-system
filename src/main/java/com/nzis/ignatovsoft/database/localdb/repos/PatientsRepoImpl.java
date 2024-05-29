@@ -1,7 +1,7 @@
-package com.nzis.ignatovsoft.database.repos;
+package com.nzis.ignatovsoft.database.localdb.repos;
 
-import com.nzis.ignatovsoft.configurations.HibernateConfig;
-import com.nzis.ignatovsoft.database.models.PatientDbModel;
+import com.nzis.ignatovsoft.configurations.application.HibernateConfigForLocalDB;
+import com.nzis.ignatovsoft.database.localdb.models.PatientDbModel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -11,14 +11,14 @@ public class PatientsRepoImpl implements PatientRepo{
     Session session;
 
     public PatientsRepoImpl() {
-        session = HibernateConfig.getSessionFactory().openSession();
+        session = HibernateConfigForLocalDB.getSessionFactoryForLocalDB().openSession();
     }
 
     @Override
     public List<PatientDbModel> getAllPatientsFromDatabase() {
         Query<PatientDbModel> query=  session.createQuery("FROM PatientDbModel", PatientDbModel.class);
-        List<PatientDbModel> customers =query.list();
+        List<PatientDbModel> patients =query.list();
 
-        return customers;
+        return patients;
     }
 }

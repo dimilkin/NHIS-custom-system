@@ -1,4 +1,4 @@
-package com.nzis.ignatovsoft.database.models;
+package com.nzis.ignatovsoft.database.localdb.models;
 
 import jakarta.persistence.*;
 
