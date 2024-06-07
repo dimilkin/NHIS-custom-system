@@ -26,6 +26,11 @@
 
         <!-- Mention your entity classes here -->
         <mapping class="com.nzis.ignatovsoft.database.astraiadb.models.AstraiaPatient"/>
+        <mapping class="com.nzis.ignatovsoft.database.astraiadb.models.AstraiaExamination"/>
+        <mapping class="com.nzis.ignatovsoft.database.localdb.models.ExamDbModel"/>
+        <mapping class="com.nzis.ignatovsoft.database.localdb.models.PatientDbModel"/>
+        <mapping class="com.nzis.ignatovsoft.database.localdb.models.DiagnosisDbModel"/>
+        <mapping class="com.nzis.ignatovsoft.database.localdb.models.PracticeInfo"/>
         <!-- Add more mapping classes if needed -->
     </session-factory>
 </hibernate-configuration>
