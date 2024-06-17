@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws SQLException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CombinedView.fxml"));
         Scene scene;
 
         startDbTrigers();

@@ -2,8 +2,8 @@
     -fx-background-color: #454545;
     -fx-alignment: center;
     -fx-text-fill: #ffffff;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
     -fx-border-width: 2;
     -fx-border-color: lawngreen;
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,65 +9,64 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="dashboard" stylesheets="@../styles/main_dashboard.css"
-            xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="600.0" prefWidth="800.0
+" styleClass="dashboard"
+            stylesheets="@../styles/main_dashboard.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.nzis.ignatovsoft.front.controllers.MaindashboardController">
     <children>
         <Label layoutX="303.0" layoutY="20.0" text="Пациенти към НЗИС" textFill="WHITE">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <HBox layoutX="200.0" layoutY="69.0" prefHeight="80.0" prefWidth="400.0" styleClass="counter_container">
+        <HBox layoutX="164.0" layoutY="72.0" prefHeight="79.0" prefWidth="513.0" styleClass="counter_container">
             <children>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Label layoutX="92.0" layoutY="32.0" styleClass="success_counter" text="12"/>
-                        <Label layoutX="29.0" layoutY="2.0" styleClass="sent_title" text="Изпратени днес"/>
+                        <Label layoutX="92.0" layoutY="32.0" styleClass="success_counter" text="12" />
+                        <Label layoutX="29.0" layoutY="2.0" styleClass="sent_title" text="Успешно изпратени" />
                     </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <Label layoutX="99.0" layoutY="32.0" styleClass="fail_counter" text="0"/>
-                        <Label layoutX="21.0" layoutY="2.0" styleClass="sent_title" text="Неуспешни опити"/>
+                        <Label layoutX="99.0" layoutY="32.0" styleClass="fail_counter" text="0" />
+                        <Label layoutX="21.0" layoutY="2.0" styleClass="sent_title" text="Неуспешни опити" />
                     </children>
                 </AnchorPane>
+              <DatePicker fx:id="dateFilter"  styleClass="date-picker"/>
             </children>
         </HBox>
-        <Label contentDisplay="CENTER" layoutX="164.0" layoutY="198.0" styleClass="transactions_title"
-               text="Транзакции към НЗИС" textAlignment="CENTER">
+        <Label contentDisplay="CENTER" layoutX="164.0" layoutY="198.0" styleClass="transactions_title" text="Транзакции към НЗИС" textAlignment="CENTER">
             <font>
-                <Font name="System Bold" size="14.0"/>
+                <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label layoutX="543.0" layoutY="198.0" styleClass="transactions_title" text="Детайли за транзакция"/>
-        <VBox id="left_container" layoutX="460.0" layoutY="225.0" prefHeight="333.0" prefWidth="100.0"
-              styleClass="details_container" AnchorPane.bottomAnchor="47.0" AnchorPane.rightAnchor="233.0">
+        <Label layoutX="543.0" layoutY="198.0" styleClass="transactions_title" text="Детайли за транзакция" />
+        <VBox id="left_container" layoutX="460.0" layoutY="225.0" prefHeight="333.0" prefWidth="100.0" styleClass="details_container" AnchorPane.bottomAnchor="47.0" AnchorPane.rightAnchor="233.0">
             <children>
-                <Label styleClass="details_text_field" text="Дата"/>
-                <Label styleClass="details_text_field" text="Име"/>
-                <Label styleClass="details_text_field" text="Фамилия"/>
-                <Label styleClass="details_text_field" text="телефон"/>
-                <Label styleClass="details_text_field" text="диагноза"/>
-                <Label styleClass="details_text_field" text="процедура"/>
-                <Label styleClass="details_text_field" text="адрес"/>
+                <Label styleClass="details_text_field" text="Дата" />
+                <Label styleClass="details_text_field" text="Име" />
+                <Label styleClass="details_text_field" text="Фамилия" />
+                <Label styleClass="details_text_field" text="телефон" />
+                <Label styleClass="details_text_field" text="диагноза" />
+                <Label styleClass="details_text_field" text="процедура" />
+                <Label styleClass="details_text_field" text="адрес" />
             </children>
         </VBox>
-        <ListView fx:id="transactionsList" layoutX="27.0" layoutY="225.0" prefHeight="370.0" prefWidth="450.0"
-                  styleClass="transactions_list_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
-        <VBox id="right_container" layoutX="568.0" layoutY="223.0" prefHeight="370.0" prefWidth="221.0"
-              styleClass="details_container" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <ListView fx:id="transactionsList" layoutX="27.0" layoutY="225.0" prefHeight="370.0" prefWidth="450.0" styleClass="transactions_list_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+        <VBox id="right_container" layoutX="568.0" layoutY="223.0" prefHeight="370.0" prefWidth="221.0" styleClass="details_container" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <children>
-                <Label fx:id="examDate" styleClass="details_text_field" text="21,04,2022"/>
-                <Label fx:id="selectedPatientName" styleClass="details_text_field" text="Екатерина"/>
-                <Label fx:id="selectedPatientFamilyName" styleClass="details_text_field" text="Атанасова"/>
-                <Label fx:id="phoneNumber" styleClass="details_text_field" text="0888 555 444"/>
-                <Label fx:id="diagnosis" styleClass="details_text_field" text="Label"/>
-                <Label fx:id="treatment" styleClass="details_text_field" text="Label"/>
-                <Label fx:id="email" styleClass="details_text_field" text="Label"/>
+                <Label fx:id="examDate" styleClass="details_text_field" text="21,04,2022" />
+                <Label fx:id="selectedPatientName" styleClass="details_text_field" text="Екатерина" />
+                <Label fx:id="selectedPatientFamilyName" styleClass="details_text_field" text="Атанасова" />
+                <Label fx:id="phoneNumber" styleClass="details_text_field" text="0888 555 444" />
+                <Label fx:id="diagnosis" styleClass="details_text_field" text="Label" />
+                <Label fx:id="treatment" styleClass="details_text_field" text="Label" />
+                <Label fx:id="email" styleClass="details_text_field" text="Label" />
             </children>
         </VBox>
-        <Button fx:id="change_btn" contentDisplay="CENTER" layoutX="478.0" layoutY="562.0" mnemonicParsing="false" styleClass="edit_button"
-                text="Промени" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS"/>
+        <Button fx:id="change_btn" contentDisplay="CENTER" layoutX="478.0" layoutY="562.0" mnemonicParsing="false" styleClass="edit_button" text="Промени" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
     </children>
 </AnchorPane>

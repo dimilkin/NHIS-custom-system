@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="transactionCellPane"
+            prefHeight="60.0"
+            prefWidth="400.0"
+            styleClass="transaction_container"
+            stylesheets="@../styles/transaction_cell.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+        <Label fx:id="transaction_cell_first_name"
+               layoutX="38.0" layoutY="22.0"
+               stylesheets="@../styles/transaction_cell.css" text="Екатерина">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <styleClass>
+                <String fx:value="trans" />
+                <String fx:value="transaction_name" />
+            </styleClass>
+        </Label>
+        <Label fx:id="transaction_cell_family_name" layoutX="124.0" layoutY="22.0" styleClass="transaction_name" text="Симеонова">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="transaction_cell_date" alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="22.0" prefHeight="20.0" prefWidth="132.0" styleClass="transaction_name" text="9101117484" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+        <Line fx:id="transaction_cell_line_two" endX="75.0" endY="-15.0" layoutX="160.0" layoutY="30.0" startX="75.0" startY="15.0" stroke="GREEN" />
+    </children>
+</AnchorPane>

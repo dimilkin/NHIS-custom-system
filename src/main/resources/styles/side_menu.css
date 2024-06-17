@@ -1,0 +1,22 @@
+/* Style for the VBox */
+#sideMenu {
+    -fx-background-color: #FFF;
+    -fx-padding: 10px;
+    -fx-min-width: 200px;
+}
+
+/* Style for the buttons */
+#sideMenu .button {
+    -fx-background-color: #313131;
+    -fx-max-width: Infinity;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Style for the buttons when hovered */
+#sideMenu .button:hover {
+    -fx-background-color: #3A3B3C;
+}

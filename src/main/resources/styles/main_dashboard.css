@@ -4,7 +4,6 @@
     -fx-background-radius: 10 10 10 10;
     -fx-border-color: #3c97f3;
     -fx-border-width: 1;
-
 }
 
 .sent_title {
@@ -27,13 +26,55 @@
     -fx-text-fill: #ffffff;
 }
 
+.date-picker {
+    -fx-background-color: #454545;
+    -fx-background-radius: 5 5 5 5;
+    -fx-padding: 2 2 2 2;
+    -fx-alignment: center;
+    -fx-spacing: 5;
+    -fx-border-radius: 5 0 0 5;
+    -fx-border-color: #3c97f3;
+    -fx-border-width: 1;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 0;
+}
+.date-picker .arrow-button:hover {
+    -fx-background-color: -fx-secondary-color;
+}
+.date-picker .arrow-button .arrow {
+    -fx-background-color: cornflowerblue;
+}
+.date-picker .cell {
+    -fx-background-color: #454545;
+    -fx-text-fill: white;
+}
+.date-picker .cell:hover {
+    -fx-background-color: -fx-light-grey-color;
+    -fx-text-fill: #132A13;
+}
+.date-picker .cell:focused {
+    -fx-background-color: -fx-light-grey-color;
+    -fx-text-fill: #132A13
+}
+.date-picker .selected {
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+}
+.date-picker .selected:focused {
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+}
+
 .counter_container {
     -fx-background-color: #454545;
-    -fx-background-radius: 20 0 20 0;
-    -fx-padding: 10 0 10 0;
+    -fx-background-radius: 5 5 5 5;
+    -fx-padding: 5 5 5 5;
     -fx-alignment: center;
     -fx-spacing: 10;
-    -fx-border-radius: 20 0 20 0;
+    -fx-border-radius: 5 5 5 5;
     -fx-border-color: #3c97f3;
     -fx-border-width: 1;
 }

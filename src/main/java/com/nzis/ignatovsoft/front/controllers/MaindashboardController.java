@@ -4,16 +4,29 @@ import com.nzis.ignatovsoft.front.events.TransactionEvent;
 import com.nzis.ignatovsoft.front.models.Transaction;
 import com.nzis.ignatovsoft.front.views.TransactionCellFactory;
 import com.nzis.ignatovsoft.nhis.services.TestDataService;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MaindashboardController implements Initializable {
-    public ListView<Transaction> transactionsList;
+
+    @FXML
+    private ListView<Transaction> transactionsList;
+
+    @FXML
+    private DatePicker dateFilter;
+    ;
+
+
     public Label selectedPatientName;
     public Label selectedPatientFamilyName;
     public Label examDate;
@@ -32,6 +45,22 @@ public class MaindashboardController implements Initializable {
         change_btn.setOnMouseClicked(v -> {
             System.out.println("Not implemented yet");
         });
+
+        dateFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
+            filterTransactions(newValue);
+        });
+    }
+
+    private void filterTransactions(LocalDate date) {
+        ObservableList<Transaction> transactions = testDataService.getAllTransactions();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        ObservableList<Transaction> filteredTransactions = transactions.filtered(transaction -> {
+            LocalDate examDate = LocalDate.parse(transaction.getDateOfExam(), formatter);
+            return examDate.equals(date);
+        });
+        transactionsList.setItems(filteredTransactions);
     }
 
     private void handleTransactionEvent(TransactionEvent event) {

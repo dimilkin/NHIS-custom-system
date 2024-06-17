@@ -1,0 +1,51 @@
+/* patientDetails.css */
+
+.vbox {
+    -fx-padding: 5px;
+    -fx-background-color: #ffffff;
+}
+
+.Label {
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 200px;
+    color: #333333;
+    padding: 10px;
+}
+
+.TextField, .ComboBox, .DatePicker {
+    min-width: 1px;
+    padding: 1px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.ComboBox, .DatePicker {
+    -fx-background-color: #ffffff;
+}
+
+.ComboBox .cell, .ComboBox .list-cell {
+    -fx-padding: 1px;
+}
+
+.DatePicker .arrow-button {
+    -fx-background-color: #ffffff;
+}
+
+.DatePicker .arrow {
+    -fx-background-color: #333333;
+}
+
+.save-patient-button {
+    -fx-background-color: #313131;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 3px;
+    -fx-margin: 10px;
+    -fx-min-width: 35;
+    -fx-border-radius: 5px;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}

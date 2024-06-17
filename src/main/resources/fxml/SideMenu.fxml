@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+        prefHeight="383.0" prefWidth="43.0"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.nzis.ignatovsoft.front.controllers.SideMenuController">
+
+    <VBox fx:id="sideMenu" spacing="10" stylesheets="@../styles/side_menu.css" AnchorPane.leftAnchor="0"
+          AnchorPane.topAnchor="0">
+        <Button fx:id="button1" text="Начало" onAction="#openStartingScreen"/>
+        <Button fx:id="button2" text="Нов Преглед" onAction="#createNewExamRecord"/>
+        <Button fx:id="button3" text="Нов Пациент" onAction="#createNewPatient"/>
+        <Button fx:id="button4" text="Пациенти" onAction="#createNewPatient"/>
+        <Button fx:id="button5" text="Прегледи" onAction="#createNewPatient"/>
+        <Button fx:id="button6" text="Настройки" onAction="#createNewPatient"/>
+    </VBox>
+
+</AnchorPane>
