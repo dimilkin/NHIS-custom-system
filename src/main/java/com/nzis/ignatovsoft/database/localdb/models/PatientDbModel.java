@@ -28,7 +28,7 @@ public class  PatientDbModel {
     private String phone;
     private String email;
 
-    @OneToMany(mappedBy="patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="patient",  fetch = FetchType.LAZY)
     private List<ExamDbModel> exams;
 
     public PatientDbModel() {

@@ -22,9 +22,9 @@ public class ExamDbModel {
     private String isBreastFeeding;
     private String examStatus;;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private  PatientDbModel patient;;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
+    private PatientDbModel patient;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")

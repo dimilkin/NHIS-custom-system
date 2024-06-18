@@ -5,7 +5,7 @@ import org.hibernate.Session;
 @SuppressWarnings("SqlNoDataSourceInspection")
 public class TriggerFunctionCreator {
     public static void createTriggerFunction(Session session) {
-        String createFunctionSQL =  "SET search_path to healthcare;" +
+        String createFunctionSQL =  "SET search_path to local;" +
                 "CREATE OR REPLACE FUNCTION notify_on_insert() RETURNS TRIGGER AS $$" +
                 "BEGIN " +
                 "  RAISE NOTICE 'A new record with ID % has been inserted into the patients table.', NEW.id; " +
