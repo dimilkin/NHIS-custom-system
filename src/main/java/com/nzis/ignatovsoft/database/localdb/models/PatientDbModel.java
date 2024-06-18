@@ -3,11 +3,12 @@ package com.nzis.ignatovsoft.database.localdb.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
 @Table(name = "patients")
-public class PatientDbModel {
+public class  PatientDbModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,9 @@ public class PatientDbModel {
     private String nationality; //CL005
     private String phone;
     private String email;
+
+    @OneToMany(mappedBy="patient",  fetch = FetchType.LAZY)
+    private List<ExamDbModel> exams;
 
     public PatientDbModel() {
     }
@@ -166,5 +170,17 @@ public class PatientDbModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<ExamDbModel> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<ExamDbModel> exams) {
+        this.exams = exams;
+    }
+
+    public void addExam(ExamDbModel exam) {
+        this.exams.add(exam);
     }
 }

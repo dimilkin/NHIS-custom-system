@@ -6,7 +6,7 @@ import org.hibernate.Session;
 public class TriggerCreator {
     public static void createTrigger(Session session) {
         String createTriggerSQL =
-                "SET search_path to healthcare;" +
+                "SET search_path to local;" +
                         "CREATE TRIGGER patients_insert_trigger " +
                         "AFTER INSERT ON patients " +
                         "FOR EACH ROW " +
