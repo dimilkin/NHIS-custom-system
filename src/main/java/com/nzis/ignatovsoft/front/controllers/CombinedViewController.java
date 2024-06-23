@@ -22,11 +22,17 @@ public class CombinedViewController {
                 if ("home".equals(newValue)) {
                     setCenterView("/fxml/MainDashboard.fxml");
                 }
-                if ("exam".equals(newValue)) {
-                    setCenterView("/fxml/Login.fxml");
+                if ("new-exam".equals(newValue)) {
+                    setCenterView("/fxml/NewExamination.fxml");
                 }
-                if ("patiient".equals(newValue)) {
+                if ("new-patiient".equals(newValue)) {
                     setCenterView("/fxml/NewPatientDetails.fxml");
+                }
+                if ("all-patiients".equals(newValue)) {
+                    setCenterView("/fxml/PatientsListDetails.fxml");
+                }
+                if ("all-exams".equals(newValue)) {
+                    setCenterView("/fxml/ExamsList.fxml");
                 }
             });
             combinedView.setLeft(sideMenu);

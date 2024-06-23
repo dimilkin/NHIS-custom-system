@@ -3,6 +3,7 @@ package com.nzis.ignatovsoft.database.localdb.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "exams")
@@ -14,12 +15,12 @@ public class ExamDbModel {
 
     private String lrn;
     private String nrn;
-    private String isSecondary;
+    private boolean isSecondary;
     private LocalDateTime closeDate;
     private String purpose;
     private String gestationalWeek;
-    private String isPregnant;
-    private String isBreastFeeding;
+    private boolean isPregnant;
+    private boolean isBreastFeeding;
     private String examStatus;;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,7 +34,7 @@ public class ExamDbModel {
     public ExamDbModel() {
     }
 
-    public ExamDbModel( String lrn, String nrn, String isSecondary, LocalDateTime closeDate, String purpose, String gestationalWeek, String isPregnant, String isBreastFeeding, String examStatus) {
+    public ExamDbModel(String lrn, String nrn, boolean isSecondary, LocalDateTime closeDate, String purpose, String gestationalWeek, boolean isPregnant, boolean isBreastFeeding, String examStatus, PatientDbModel patient, DiagnosisDbModel diagnosis) {
         this.lrn = lrn;
         this.nrn = nrn;
         this.isSecondary = isSecondary;
@@ -43,6 +44,8 @@ public class ExamDbModel {
         this.isPregnant = isPregnant;
         this.isBreastFeeding = isBreastFeeding;
         this.examStatus = examStatus;
+        this.patient = patient;
+        this.diagnosis = diagnosis;
     }
 
     public long getId() {
@@ -69,12 +72,12 @@ public class ExamDbModel {
         this.nrn = nrn;
     }
 
-    public String getIsSecondary() {
+    public boolean isSecondary() {
         return isSecondary;
     }
 
-    public void setIsSecondary(String isSecondary) {
-        this.isSecondary = isSecondary;
+    public void setSecondary(boolean secondary) {
+        isSecondary = secondary;
     }
 
     public LocalDateTime getCloseDate() {
@@ -101,20 +104,20 @@ public class ExamDbModel {
         this.gestationalWeek = gestationalWeek;
     }
 
-    public String getIsPregnant() {
+    public boolean isPregnant() {
         return isPregnant;
     }
 
-    public void setIsPregnant(String isPregnant) {
-        this.isPregnant = isPregnant;
+    public void setPregnant(boolean pregnant) {
+        isPregnant = pregnant;
     }
 
-    public String getIsBreastFeeding() {
+    public boolean isBreastFeeding() {
         return isBreastFeeding;
     }
 
-    public void setIsBreastFeeding(String isBreastFeeding) {
-        this.isBreastFeeding = isBreastFeeding;
+    public void setBreastFeeding(boolean breastFeeding) {
+        isBreastFeeding = breastFeeding;
     }
 
     public String getExamStatus() {
@@ -139,5 +142,12 @@ public class ExamDbModel {
 
     public void setDiagnosis(DiagnosisDbModel diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        String examDateText = closeDate.format(formatter);
+        return "Exam from " + examDateText;
     }
 }

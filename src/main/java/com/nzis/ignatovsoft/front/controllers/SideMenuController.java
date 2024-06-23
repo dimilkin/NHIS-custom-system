@@ -17,10 +17,18 @@ public class SideMenuController {
     }
 
     public void createNewPatient(ActionEvent actionEvent) {
-        actionProperty.set("patiient");
+        actionProperty.set("new-patiient");
     }
 
     public void createNewExamRecord(ActionEvent actionEvent) {
-        actionProperty.set("exam");
+        actionProperty.set("new-exam");
+    }
+
+    public void openAllPatients(ActionEvent actionEvent) {
+        actionProperty.set("all-patiients");
+    }
+
+    public void openAllExams(ActionEvent actionEvent) {
+        actionProperty.set("all-exams");
     }
 }

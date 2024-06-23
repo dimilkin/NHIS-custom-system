@@ -1,9 +1,9 @@
 package com.nzis.ignatovsoft.front.controllers;
 
+import com.nzis.ignatovsoft.dataservices.TransactionsDataService;
 import com.nzis.ignatovsoft.front.events.TransactionEvent;
 import com.nzis.ignatovsoft.front.models.Transaction;
 import com.nzis.ignatovsoft.front.views.TransactionCellFactory;
-import com.nzis.ignatovsoft.nhis.services.TestDataService;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,9 +24,6 @@ public class MaindashboardController implements Initializable {
 
     @FXML
     private DatePicker dateFilter;
-    ;
-
-
     public Label selectedPatientName;
     public Label selectedPatientFamilyName;
     public Label examDate;
@@ -35,7 +32,7 @@ public class MaindashboardController implements Initializable {
     public Label treatment;
     public Label email;
     public Button change_btn;
-    private TestDataService testDataService = new TestDataService();
+    private TransactionsDataService testDataService = new TransactionsDataService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

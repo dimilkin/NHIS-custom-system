@@ -1,24 +1,24 @@
-package com.nzis.ignatovsoft.nhis.services;
+package com.nzis.ignatovsoft.dataservices;
 
 import com.nzis.ignatovsoft.database.astraiadb.models.AstraiaPatient;
 import com.nzis.ignatovsoft.database.astraiadb.repos.AstraiaPatientsRepo;
 import com.nzis.ignatovsoft.database.astraiadb.repos.AstraiaPatientsRepoImpl;
 import com.nzis.ignatovsoft.database.localdb.models.PatientDbModel;
 import com.nzis.ignatovsoft.database.localdb.repos.PatientRepo;
-import com.nzis.ignatovsoft.database.localdb.repos.PatientsRepoImpl;
+import com.nzis.ignatovsoft.database.localdb.repos.impls.PatientsRepoImpl;
 import com.nzis.ignatovsoft.front.models.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class TestDataService {
+public class TransactionsDataService {
 
     private final ObservableList<Transaction> allTransactions = FXCollections.observableArrayList();
     PatientRepo patientRepo;
     AstraiaPatientsRepo astraiaPatientsRepo;
 
-    public TestDataService() {
+    public TransactionsDataService() {
         patientRepo = new PatientsRepoImpl();
         astraiaPatientsRepo = new AstraiaPatientsRepoImpl();
         loadData();

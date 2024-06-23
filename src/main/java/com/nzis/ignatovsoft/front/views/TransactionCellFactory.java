@@ -39,7 +39,6 @@ public class TransactionCellFactory extends ListCell<Transaction> {
     }
 
     private void handleCellClick(Transaction transaction) {
-        System.out.println("Transaction CLicked!");
     }
 
 }

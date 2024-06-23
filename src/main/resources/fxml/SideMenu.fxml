@@ -15,8 +15,8 @@
         <Button fx:id="button1" text="Начало" onAction="#openStartingScreen"/>
         <Button fx:id="button2" text="Нов Преглед" onAction="#createNewExamRecord"/>
         <Button fx:id="button3" text="Нов Пациент" onAction="#createNewPatient"/>
-        <Button fx:id="button4" text="Пациенти" onAction="#createNewPatient"/>
-        <Button fx:id="button5" text="Прегледи" onAction="#createNewPatient"/>
+        <Button fx:id="button4" text="Пациенти" onAction="#openAllPatients"/>
+        <Button fx:id="button5" text="Прегледи" onAction="#openAllExams"/>
         <Button fx:id="button6" text="Настройки" onAction="#createNewPatient"/>
     </VBox>
 

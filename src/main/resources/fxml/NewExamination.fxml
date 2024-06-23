@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.nzis.ignatovsoft.front.controllers.NewExamController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nzis.ignatovsoft.front.controllers.NewExamController">
+    <GridPane alignment="CENTER" hgap="10" layoutX="21.0" layoutY="22.0" prefHeight="353.0" prefWidth="557.0" vgap="10">
+
+
+        <Label text="Is Secondary:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <CheckBox fx:id="isSecondaryField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Purpose:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="purposeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Gestational Week:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="gestationalWeekField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Is Pregnant:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <CheckBox fx:id="isPregnantField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label text="Is Breast Feeding:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <CheckBox fx:id="isBreastFeedingField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+        <Label text="Exam Status:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <TextField fx:id="examStatusField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+
+    </GridPane>
+
 
 </AnchorPane>
