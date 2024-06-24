@@ -1,7 +1,9 @@
 package com.nzis.ignatovsoft.nhis.services;
 
+import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
 import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
+import com.nzis.ignatovsoft.nhis.services.mappers.ExamClosingBodyX003Marshalling;
 import com.nzis.ignatovsoft.nhis.services.mappers.InitialExamOpenerMarshaling;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -18,22 +20,26 @@ import java.net.http.HttpResponse;
 public class NetworkServiceImpl implements NetworkService {
 
     private final DigitalSignatureImpl digitalSignee = new DigitalSignatureImpl();
-    private final InitialExamOpenerMarshaling initialExamOpenerMarshaling = new InitialExamOpenerMarshaling();
+    private AuthenticationService authService;
+
+    public NetworkServiceImpl() {
+        authService = new AuthenticationService();
+    }
 
     @Override
     public String sendExaminationOpenRequestX001(PatientDTO patientDTO) {
-        AuthenticationService authService = new AuthenticationService();
+        InitialExamOpenerMarshaling initialExamOpenerMarshaling = new InitialExamOpenerMarshaling();
 
         try {
-        String requestPayload = initialExamOpenerMarshaling.getMarshaledRequestBody(patientDTO);
-        String signedRequest = digitalSignee.signXml(requestPayload);
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ptest-api.his.bg/v1/eexamination/examination/open"))
-                .header("Content-Type", "application/xml")
-                .header("Authorization", "Bearer " + authService.getAccessToken())
-                .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
-                .build();
+            String requestPayload = initialExamOpenerMarshaling.getMarshaledRequestBody(patientDTO);
+            String signedRequest = digitalSignee.signXml(requestPayload);
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://ptest-api.his.bg/v1/eexamination/examination/open"))
+                    .header("Content-Type", "application/xml")
+                    .header("Authorization", "Bearer " + authService.getAccessToken())
+                    .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
+                    .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -51,7 +57,18 @@ public class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public String sendExaminationCloseRequestX003 (PatientDTO patientDTO) {
+    public String sendExaminationCloseRequestX003(ExamDTO examDTO) {
+        ExamClosingBodyX003Marshalling examClosingBodyX003Marshalling = new ExamClosingBodyX003Marshalling();
+        String marshaledRequest = examClosingBodyX003Marshalling.getMarshalledRequestBody(examDTO);
+        String signedRequest = digitalSignee.signXml(marshaledRequest);
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://ptest-api.his.bg/v1/eexamination/examination/open"))
+                .header("Content-Type", "application/xml")
+                .header("Authorization", "Bearer " + authService.getAccessToken())
+                .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
+                .build();
         return null;
     }
 }

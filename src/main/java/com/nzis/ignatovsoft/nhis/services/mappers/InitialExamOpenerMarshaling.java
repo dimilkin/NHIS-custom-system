@@ -17,6 +17,8 @@ import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.UUID;
 
+import static com.nzis.ignatovsoft.nhis.services.HeadersGenerator.generateHeaders;
+
 public class InitialExamOpenerMarshaling {
 
     public InitialExamOpenerMarshaling() {
@@ -31,10 +33,9 @@ public class InitialExamOpenerMarshaling {
     }
 
     private String marshalRequestBody (PatientDTO patientDTO) throws DatatypeConfigurationException, JAXBException {
-        DoctorInfo doctorInfo = new DoctorInfo();
         ContentsX001 body = generateContents(patientDTO
         );
-        Header header = generateHeaders(doctorInfo);
+        Header header = generateHeaders();
         MessageX001 messageX001 = new MessageX001();
         messageX001.setContents(body);
         messageX001.setHeader(header);
@@ -47,44 +48,6 @@ public class InitialExamOpenerMarshaling {
         StringWriter sw = new StringWriter();
         marshaller.marshal(messageX001, sw);
         return sw.toString();
-    }
-
-    private Header generateHeaders(DoctorInfo doctorInfo) {
-        Header header = new Header();
-
-        MessageSender sender = new MessageSender();
-        sender.setValue(HeadersInfoConstants.SENDER_TYPE);
-        header.setSender(sender);
-
-        MessageSenderId senderId = new MessageSenderId();
-        senderId.setValue(doctorInfo.getDoctorsId());
-        header.setSenderId(senderId);
-
-        MessageSenderISName senderISName = new MessageSenderISName();
-        senderISName.setValue("IgnatovSoft");
-        header.setSenderISName(senderISName);
-
-        MessageRecipient recipient = new MessageRecipient();
-        recipient.setValue("4");
-        header.setRecipient(recipient);
-
-        MessageRecipientId recipientId = new MessageRecipientId();
-        recipientId.setValue("NHIS");
-        header.setRecipientId(recipientId);
-
-        MessageId messageId = new MessageId();
-        messageId.setValue(getRandomUUID());
-        header.setMessageId(messageId);
-
-        MessageType messageType = new MessageType();
-        messageType.setValue("X001");
-        header.setMessageType(messageType);
-
-        MessageCreatedOn createdOn = new MessageCreatedOn();
-        createdOn.setValue(Calendar.getInstance());
-        header.setCreatedOn(createdOn);
-
-        return header;
     }
 
     private ContentsX001 generateContents(PatientDTO patientDTO) throws DatatypeConfigurationException {
