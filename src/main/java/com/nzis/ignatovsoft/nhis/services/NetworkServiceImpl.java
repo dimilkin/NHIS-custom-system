@@ -21,7 +21,7 @@ public class NetworkServiceImpl implements NetworkService {
     private final InitialExamOpenerMarshaling initialExamOpenerMarshaling = new InitialExamOpenerMarshaling();
 
     @Override
-    public String sendExaminationOpenRequest(PatientDTO patientDTO) {
+    public String sendExaminationOpenRequestX001(PatientDTO patientDTO) {
         AuthenticationService authService = new AuthenticationService();
 
         try {
@@ -51,7 +51,7 @@ public class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public String sendExaminationCloseRequest(PatientDTO patientDTO) {
+    public String sendExaminationCloseRequestX003 (PatientDTO patientDTO) {
         return null;
     }
 }

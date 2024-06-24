@@ -4,7 +4,7 @@ import com.nzis.ignatovsoft.dtos.PatientDTO;
 
 public interface NetworkService {
 
-    String sendExaminationOpenRequest (PatientDTO patientDTO);
+    String sendExaminationOpenRequestX001 (PatientDTO patientDTO);
 
-    String sendExaminationCloseRequest (PatientDTO patientDTO);
+    String sendExaminationCloseRequestX003 (PatientDTO patientDTO);
 }
