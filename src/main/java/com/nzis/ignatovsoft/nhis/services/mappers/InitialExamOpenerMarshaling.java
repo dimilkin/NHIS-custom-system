@@ -102,7 +102,7 @@ public class InitialExamOpenerMarshaling {
         performer.setNhifNumber(null);
 
         PmiBase pmiBase = new PmiBase();
-        pmiBase.setValue(doctorInfo.getDoctorsId());
+        pmiBase.setValue("2300011848");
         performer.setPmi(pmiBase);
 
         QualificationBase qualificationBase = new QualificationBase();
@@ -113,7 +113,7 @@ public class InitialExamOpenerMarshaling {
         performer.setPmiDeputy(null);
 
         PracticeNumberBase practiceNumberBase = new PracticeNumberBase();
-        practiceNumberBase.setValue(doctorInfo.getDoctorsId());
+        practiceNumberBase.setValue("2300011848");
         performer.setPracticeNumber(practiceNumberBase);
 
         performer.setRhifAreaNumber(null);
@@ -174,7 +174,9 @@ public class InitialExamOpenerMarshaling {
         addressBase.setEkatte(null);
         patient.setAddress(addressBase);
 
-        patient.setNationality(null);
+        NationalityBase nationalityBase = new NationalityBase();
+        nationalityBase.setValue("BG");
+        patient.setNationality(nationalityBase);
         patient.setPhone(null);
         patient.setEmail(null);
 

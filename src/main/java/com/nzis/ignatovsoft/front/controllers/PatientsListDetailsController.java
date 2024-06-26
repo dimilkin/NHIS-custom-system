@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PatientsListDetailsController  implements Initializable {
+public class PatientsListDetailsController implements Initializable {
 
     @FXML
     private ListView<PatientDbModel> patientsList;
@@ -38,6 +38,8 @@ public class PatientsListDetailsController  implements Initializable {
     private PatientDbModel selectedPatient;
 
     private  PatientsDataService patientsDataService;
+
+
 
     public PatientsListDetailsController() {
     }

@@ -21,6 +21,15 @@ public class ExamsDataService {
         loadData();
     }
 
+    public void saveExam(ExamDbModel examDbModel) {
+        examRepo.saveExam(examDbModel);
+        allExamsFromLocalDb.add(examDbModel);
+    }
+
+    public ExamDbModel getExamByNrnValue(String nrnValue) {
+        return examRepo.getExamByNrnValue(nrnValue);
+    }
+
     public ObservableList<ExamDbModel> getAllLocalDbExams() {
         return allExamsFromLocalDb;
     }

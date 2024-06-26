@@ -19,6 +19,21 @@ public class ExamsRepoImpls implements ExamsRepo {
     }
 
     @Override
+    public void saveExam(ExamDbModel examDbModel) {
+        session.beginTransaction();
+        session.persist(examDbModel);
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public ExamDbModel getExamByNrnValue(String nrnValue) {
+        Query<ExamDbModel> query =  session.createQuery("FROM ExamDbModel WHERE nrn = :nrnValue", ExamDbModel.class);
+        query.setParameter("nrnValue", nrnValue);
+        ExamDbModel examDbModel = query.uniqueResult();
+        return examDbModel;
+    }
+
+    @Override
     public List<ExamDbModel> getAllExamsFromDatabase() {
         Query<ExamDbModel> query =  session.createQuery("FROM ExamDbModel ", ExamDbModel.class);
         List<ExamDbModel> examDbModels = query.list();

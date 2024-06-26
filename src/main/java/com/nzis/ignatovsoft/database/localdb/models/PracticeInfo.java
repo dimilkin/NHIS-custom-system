@@ -10,8 +10,8 @@ public class PracticeInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private  String practiceName;;
-    private  String practiceAddress;
+    private String practiceName;
+    private String practiceAddress;
     private String doctorName;
     private String doctorPhone;
     private String doctorId;

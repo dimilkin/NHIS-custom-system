@@ -3,16 +3,15 @@ package com.nzis.ignatovsoft.nhis.services.mappers;
 import com.nzis.ignatovsoft.configurations.application.DoctorInfo;
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
-import com.nzis.ignatovsoft.nhis.models.nhis.x003.ContentsX003;
-import com.nzis.ignatovsoft.nhis.models.nhis.x003.Examination;
-import com.nzis.ignatovsoft.nhis.models.nhis.x003.MessageX003;
-import com.nzis.ignatovsoft.nhis.models.nhis.x003.MotherHealthcare;
+import com.nzis.ignatovsoft.nhis.models.nhis.x003.*;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 import static com.nzis.ignatovsoft.nhis.services.HeadersGenerator.generateHeaders;
@@ -39,7 +38,7 @@ public class ExamClosingBodyX003Marshalling {
 
         JAXBContext context = JAXBContext.newInstance(MessageX003.class);
         Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         StringWriter sw = new StringWriter();
         marshaller.marshal(messageX003, sw);
@@ -58,9 +57,16 @@ public class ExamClosingBodyX003Marshalling {
 
     private Examination generateExamination(ExamDTO examDTO) {
         Examination examination = new Examination();
+
         NrnBase nrnBase = new NrnBase();
         nrnBase.setValue(examDTO.getNrnExamination());
         examination.setNrnExamination(nrnBase);
+
+        DocumentNumberBase basedOn = new DocumentNumberBase();
+        examination.setBasedOn(basedOn);
+
+        DirectedByBase directedBy = new DirectedByBase();
+        examination.setDirectedBy(directedBy);
 
         IsSecondaryBase isSecondaryBase = new IsSecondaryBase();
         isSecondaryBase.setValue(examDTO.isSecondaryField());
@@ -85,8 +91,43 @@ public class ExamClosingBodyX003Marshalling {
         MotherHealthcare motherHealthcare = generateMotherHealthcare(examDTO);
         examination.setMotherHealthcare(motherHealthcare);
 
+        ChildHealthcare childHealthcare = new ChildHealthcare();
+        examination.setChildHealthcare(childHealthcare);
+
+        List<ConsultationBasic> consultation = List.of();
+        examination.setConsultation(consultation);
+
+        Documents documents = new Documents();
+        examination.setDocuments(documents);
+
         DiagnosisFull diagnosisFull = generateDiagnosisFull(examDTO);
         examination.setDiagnosis(diagnosisFull);
+
+        List<DiagnosisFull> comorbidity = List.of();
+        examination.setComorbidity(comorbidity);
+
+        Text4kBase medicalHistory = new Text4kBase();
+        examination.setMedicalHistory(medicalHistory);
+
+        Text4kBase objectiveCondition = new Text4kBase();
+        examination.setObjectiveCondition(objectiveCondition);
+
+        List<Assessment> assessment = List.of();
+        examination.setAssessment(assessment);
+
+        List<DiagnosticReport> diagnosticReport = List.of();
+        examination.setDiagnosticReport(diagnosticReport);
+
+        ConclusionBase conclusionBase = new ConclusionBase();
+        conclusionBase.setValue(examDTO.getConclusion());
+        examination.setConclusion(conclusionBase);
+
+        DischargeDispositionBase dischargeDispositionBase = new DischargeDispositionBase();
+        dischargeDispositionBase.setValue(examDTO.getDischargeDisposition());
+        examination.setDischargeDisposition(dischargeDispositionBase);
+
+        Therapy therapy = new Therapy();
+        examination.setTherapy(therapy);
 
         return examination;
     }
@@ -105,7 +146,7 @@ public class ExamClosingBodyX003Marshalling {
         diagnosisFull.setUse(diagnosisUseBase);
 
         DiagnosisRankBase diagnosisRankBase = new DiagnosisRankBase();
-        diagnosisRankBase.setValue(examDTO.getDiagnosisRank());
+        diagnosisRankBase.setValue(BigInteger.valueOf(examDTO.getDiagnosisRank()));
         diagnosisFull.setRank(diagnosisRankBase);
 
         DiagnosisClinicalStatusBase diagnosisClinicalStatusBase = new DiagnosisClinicalStatusBase();
@@ -134,7 +175,7 @@ public class ExamClosingBodyX003Marshalling {
         motherHealthcare.setIsBreastFeeding(isBreastFeedingBase);
 
         GestationalWeekBase gestationalWeekBase = new GestationalWeekBase();
-        gestationalWeekBase.setValue(examDTO.getGestationalWeekField());
+        gestationalWeekBase.setValue(BigInteger.valueOf(examDTO.getGestationalWeekField()));
         motherHealthcare.setGestationalWeek(gestationalWeekBase);
 
         return motherHealthcare;

@@ -11,6 +11,7 @@ import java.io.Serializable;
 @XmlRootElement(name = "message", namespace = "https://www.his.bg")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MessageX001 extends MessageBase implements Serializable {
+
     @XmlElement(name = "contents", namespace = "https://www.his.bg", required = true)
     protected ContentsX001 contents;
 

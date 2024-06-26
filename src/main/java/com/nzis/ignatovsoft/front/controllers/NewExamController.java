@@ -1,10 +1,15 @@
 package com.nzis.ignatovsoft.front.controllers;
 
+import com.nzis.ignatovsoft.adaptors.ExamsAdaptor;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
-public class NewExamController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class NewExamController implements Initializable {
     public TextField ICDCode;
     public TextField additionalIcdCode;
     public TextField diagnosisUse;
@@ -19,4 +24,17 @@ public class NewExamController {
     public CheckBox isBreastFeedingField;
     public TextField examStatusField;
     public Button saveExamButton;
+
+    private ExamsAdaptor examsAdaptor;
+
+    public NewExamController() {
+        examsAdaptor = new ExamsAdaptor();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        saveExamButton.setOnMouseClicked(e -> {
+            examsAdaptor.sendExamToNhis();
+        });
+    }
 }

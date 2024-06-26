@@ -1,23 +1,26 @@
 package com.nzis.ignatovsoft.dtos;
 
-import java.math.BigInteger;
-
 public class ExamDTO {
 
     private String nrnExamination;
     private String ICDCode;
     private String additionalIcdCode;
     private String diagnosisUse;
-    private BigInteger diagnosisRank;
+    private int diagnosisRank;
     private String clinicalStatus;
     private String verificationStatus;
     private String notes;
     private boolean isSecondaryField;
     private String purposeField;
-    private BigInteger gestationalWeekField;
+    private int gestationalWeekField;
     private boolean isPregnantField;
     private boolean isBreastFeedingField;
     private String examStatusField;
+    private String medicalHistory;
+    private String objectiveCondition;
+    private String conclusion;
+    private String dischargeDisposition;
+    private String therapy;
 
     public String getNrnExamination() {
         return nrnExamination;
@@ -51,11 +54,11 @@ public class ExamDTO {
         this.diagnosisUse = diagnosisUse;
     }
 
-    public BigInteger getDiagnosisRank() {
+    public int getDiagnosisRank() {
         return diagnosisRank;
     }
 
-    public void setDiagnosisRank(BigInteger diagnosisRank) {
+    public void setDiagnosisRank(int diagnosisRank) {
         this.diagnosisRank = diagnosisRank;
     }
 
@@ -99,11 +102,11 @@ public class ExamDTO {
         this.purposeField = purposeField;
     }
 
-    public BigInteger getGestationalWeekField() {
+    public int getGestationalWeekField() {
         return gestationalWeekField;
     }
 
-    public void setGestationalWeekField(BigInteger gestationalWeekField) {
+    public void setGestationalWeekField(int gestationalWeekField) {
         this.gestationalWeekField = gestationalWeekField;
     }
 
@@ -129,5 +132,45 @@ public class ExamDTO {
 
     public void setExamStatusField(String examStatusField) {
         this.examStatusField = examStatusField;
+    }
+
+    public String getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(String medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
+    public String getObjectiveCondition() {
+        return objectiveCondition;
+    }
+
+    public void setObjectiveCondition(String objectiveCondition) {
+        this.objectiveCondition = objectiveCondition;
+    }
+
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public void setConclusion(String conclusion) {
+        this.conclusion = conclusion;
+    }
+
+    public String getDischargeDisposition() {
+        return dischargeDisposition;
+    }
+
+    public void setDischargeDisposition(String dischargeDisposition) {
+        this.dischargeDisposition = dischargeDisposition;
+    }
+
+    public String getTherapy() {
+        return therapy;
+    }
+
+    public void setTherapy(String therapy) {
+        this.therapy = therapy;
     }
 }

@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface ExamsRepo {
 
+    void saveExam(ExamDbModel examDbModel);
+
+    ExamDbModel getExamByNrnValue(String nrnValue);
+
     List<ExamDbModel> getAllExamsFromDatabase();
 
     List<ExamDbModel> getFilteredExams(LocalDate startDate, LocalDate endDate);

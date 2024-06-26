@@ -2,24 +2,77 @@ package com.nzis.ignatovsoft.nhis.models.nhis.x003;
 
 
 import com.nzis.ignatovsoft.nhis.models.generated.*;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.*;
 
+import java.util.List;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "examination")
-@XmlType(propOrder = { "nrnExamination", "isSecondary", "closeDate", "purpose", "incidentalVisit", "adverseConditions", "diagnosis" })
+@XmlType(propOrder = {
+        "nrnExamination",
+        "basedOn",
+        "directedBy",
+        "isSecondary",
+        "closeDate",
+        "purpose",
+        "plannedType",
+        "incidentalVisit",
+        "adverseConditions",
+        "consultation",
+        "documents",
+        "diagnosis",
+        "comorbidity",
+        "medicalHistory",
+        "objectiveCondition",
+        "assessment",
+        "therapy",
+        "diagnosticReport",
+        "conclusion",
+        "dischargeDisposition"
+})
 public class Examination {
 
-    private NrnBase nrnExamination;
-    private IsSecondaryBase isSecondary;
-    private CloseDateBase closeDate;
-    private PurposeBase purpose;
-    private IncidentalVisitBase incidentalVisit;
-    private AdverseConditionsBase adverseConditions;
-    private MotherHealthcare motherHealthcare;
-    private DiagnosisFull diagnosis;
 
-    @XmlElement(name = "nrnExamination", required = true)
+    @XmlElement(name = "nrnExamination", namespace = "https://www.his.bg", required = true)
+    private NrnBase nrnExamination;
+    @XmlElement(name = "basedOn", namespace = "https://www.his.bg", required = false)
+    private DocumentNumberBase basedOn;
+    @XmlElement(name = "directedBy", namespace = "https://www.his.bg", required = false)
+    private DirectedByBase directedBy;
+    @XmlElement(name = "isSecondary" , namespace = "https://www.his.bg", required = true)
+    private IsSecondaryBase isSecondary;
+    @XmlElement(name = "closeDate" , namespace = "https://www.his.bg", required = true)
+    private CloseDateBase closeDate;
+    @XmlElement(name = "purpose" , namespace = "https://www.his.bg", required = true)
+    private PurposeBase purpose;
+    @XmlElement(name = "incidentalVisit" , namespace = "https://www.his.bg", required = true)
+    private IncidentalVisitBase incidentalVisit;
+    @XmlElement(name = "adverseConditions" , namespace = "https://www.his.bg", required = true)
+    private AdverseConditionsBase adverseConditions;
+    @XmlElement(name = "consultation" , namespace = "https://www.his.bg", required = false)
+    private List<ConsultationBasic> consultation;
+    @XmlElement(name = "documents" , namespace = "https://www.his.bg", required = false)
+    private Documents documents;
+    @XmlElement(name = "diagnosis" , namespace = "https://www.his.bg", required = true)
+    private DiagnosisFull diagnosis;
+    @XmlElement(name = "comorbidity" , namespace = "https://www.his.bg", required = false)
+    private List<DiagnosisFull> comorbidity;
+    @XmlElement(name = "assessment" , namespace = "https://www.his.bg", required = false)
+    private List<Assessment> assessment;
+
+    @XmlElement(name = "medicalHistory" , namespace = "https://www.his.bg", required = false)
+    private MedicalHistory medicalHistory;
+
+
+    @XmlElement(name = "diagnosticReport" , namespace = "https://www.his.bg", required = false)
+    private List<DiagnosticReport> diagnosticReport;
+    @XmlElement(name = "conclusion" , namespace = "https://www.his.bg", required = false)
+    private ConclusionBase conclusion;
+    @XmlElement(name = "dischargeDisposition" , namespace = "https://www.his.bg", required = false)
+    private DischargeDispositionBase dischargeDisposition;
+    @XmlElement(name = "therapy" , namespace = "https://www.his.bg", required = false)
+    private Therapy therapy;
+
     public NrnBase getNrnExamination() {
         return nrnExamination;
     }
@@ -28,7 +81,6 @@ public class Examination {
         this.nrnExamination = nrnExamination;
     }
 
-    @XmlElement(name = "isSecondary", required = true)
     public IsSecondaryBase getIsSecondary() {
         return isSecondary;
     }
@@ -37,7 +89,6 @@ public class Examination {
         this.isSecondary = isSecondary;
     }
 
-    @XmlElement(name = "closeDate", required = true)
     public CloseDateBase getCloseDate() {
         return closeDate;
     }
@@ -46,7 +97,6 @@ public class Examination {
         this.closeDate = closeDate;
     }
 
-    @XmlElement(name = "purpose", required = true)
     public PurposeBase getPurpose() {
         return purpose;
     }
@@ -55,7 +105,6 @@ public class Examination {
         this.purpose = purpose;
     }
 
-    @XmlElement(name = "incidentalVisit", required = true)
     public IncidentalVisitBase getIncidentalVisit() {
         return incidentalVisit;
     }
@@ -64,7 +113,6 @@ public class Examination {
         this.incidentalVisit = incidentalVisit;
     }
 
-    @XmlElement(name = "adverseConditions", required = true)
     public AdverseConditionsBase getAdverseConditions() {
         return adverseConditions;
     }
@@ -73,7 +121,6 @@ public class Examination {
         this.adverseConditions = adverseConditions;
     }
 
-    @XmlElement(name = "diagnosis", required = true)
     public DiagnosisFull getDiagnosis() {
         return diagnosis;
     }
@@ -82,12 +129,83 @@ public class Examination {
         this.diagnosis = diagnosis;
     }
 
-    @XmlElement(name = "motherHealthcare", required = true)
-    public MotherHealthcare getMotherHealthcare() {
-        return motherHealthcare;
+    public ConclusionBase getConclusion() {
+        return conclusion;
     }
 
-    public void setMotherHealthcare(MotherHealthcare motherHealthcare) {
-        this.motherHealthcare = motherHealthcare;
+    public void setConclusion(ConclusionBase conclusion) {
+        this.conclusion = conclusion;
+    }
+
+    public DischargeDispositionBase getDischargeDisposition() {
+        return dischargeDisposition;
+    }
+
+    public void setDischargeDisposition(DischargeDispositionBase dischargeDisposition) {
+        this.dischargeDisposition = dischargeDisposition;
+    }
+
+    public Documents getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Documents documents) {
+        this.documents = documents;
+    }
+
+    public List<Assessment> getAssessment() {
+        return assessment;
+    }
+
+    public void setAssessment(List<Assessment> assessment) {
+        this.assessment = assessment;
+    }
+
+    public List<DiagnosticReport> getDiagnosticReport() {
+        return diagnosticReport;
+    }
+
+    public void setDiagnosticReport(List<DiagnosticReport> diagnosticReport) {
+        this.diagnosticReport = diagnosticReport;
+    }
+
+    public Therapy getTherapy() {
+        return therapy;
+    }
+
+    public void setTherapy(Therapy therapy) {
+        this.therapy = therapy;
+    }
+
+    public DocumentNumberBase getBasedOn() {
+        return basedOn;
+    }
+
+    public void setBasedOn(DocumentNumberBase basedOn) {
+        this.basedOn = basedOn;
+    }
+
+    public DirectedByBase getDirectedBy() {
+        return directedBy;
+    }
+
+    public void setDirectedBy(DirectedByBase directedBy) {
+        this.directedBy = directedBy;
+    }
+
+    public List<ConsultationBasic> getConsultation() {
+        return consultation;
+    }
+
+    public void setConsultation(List<ConsultationBasic> consultation) {
+        this.consultation = consultation;
+    }
+
+    public List<DiagnosisFull> getComorbidity() {
+        return comorbidity;
+    }
+
+    public void setComorbidity(List<DiagnosisFull> comorbidity) {
+        this.comorbidity = comorbidity;
     }
 }

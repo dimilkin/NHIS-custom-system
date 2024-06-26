@@ -21,7 +21,15 @@ public class ExamDbModel {
     private String gestationalWeek;
     private boolean isPregnant;
     private boolean isBreastFeeding;
-    private String examStatus;;
+    private String examStatus;
+    @Column(name = "medical_history")
+    private String medicalHistory;
+    @Column(name = "objective_condition")
+    private String objectiveCondition;
+    private String conclusion;
+    @Column(name = "discharge_disposition")
+    private String dischargeDisposition;
+    private String therapy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")

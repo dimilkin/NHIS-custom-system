@@ -18,7 +18,7 @@ public class HeadersGenerator {
         header.setSender(sender);
 
         MessageSenderId senderId = new MessageSenderId();
-        senderId.setValue(doctorInfo.getDoctorsId());
+        senderId.setValue(HeadersInfoConstants.SENDER_ID);
         header.setSenderId(senderId);
 
         MessageSenderISName senderISName = new MessageSenderISName();
