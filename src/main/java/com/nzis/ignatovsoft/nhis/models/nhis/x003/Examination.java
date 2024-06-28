@@ -2,24 +2,43 @@ package com.nzis.ignatovsoft.nhis.models.nhis.x003;
 
 
 import com.nzis.ignatovsoft.nhis.models.generated.*;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "examination")
-@XmlType(propOrder = { "nrnExamination", "isSecondary", "closeDate", "purpose", "incidentalVisit", "adverseConditions", "diagnosis" })
+@XmlType(propOrder = {"nrnExamination", "isSecondary", "purpose", "motherHealthcare", "adverseConditions", "incidentalVisit", "diagnosis", "closeDate"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Examination {
 
+    @XmlElement(name = "nrnExamination", required = true)
     private NrnBase nrnExamination;
+
+    @XmlElement(name = "basedOn", required = false)
+    private DocumentNumberBase basedOn;
+
+    @XmlElement(name = "directedBy", required = false)
+    private DirectedByBase directedBy;
+
+    @XmlElement(name = "isSecondary", required = true)
     private IsSecondaryBase isSecondary;
+
+    @XmlElement(name = "closeDate", required = true)
     private CloseDateBase closeDate;
+
+    @XmlElement(name = "purpose", required = true)
     private PurposeBase purpose;
+
+    @XmlElement(name = "incidentalVisit", required = true)
     private IncidentalVisitBase incidentalVisit;
+
+    @XmlElement(name = "adverseConditions", required = true)
     private AdverseConditionsBase adverseConditions;
+
+    @XmlElement(name = "motherHealthcare", required = true)
     private MotherHealthcare motherHealthcare;
+
+    @XmlElement(name = "diagnosis", required = true)
     private DiagnosisFull diagnosis;
 
-    @XmlElement(name = "nrnExamination", required = true)
     public NrnBase getNrnExamination() {
         return nrnExamination;
     }
@@ -28,7 +47,6 @@ public class Examination {
         this.nrnExamination = nrnExamination;
     }
 
-    @XmlElement(name = "isSecondary", required = true)
     public IsSecondaryBase getIsSecondary() {
         return isSecondary;
     }
@@ -37,7 +55,6 @@ public class Examination {
         this.isSecondary = isSecondary;
     }
 
-    @XmlElement(name = "closeDate", required = true)
     public CloseDateBase getCloseDate() {
         return closeDate;
     }
@@ -46,7 +63,6 @@ public class Examination {
         this.closeDate = closeDate;
     }
 
-    @XmlElement(name = "purpose", required = true)
     public PurposeBase getPurpose() {
         return purpose;
     }
@@ -55,7 +71,6 @@ public class Examination {
         this.purpose = purpose;
     }
 
-    @XmlElement(name = "incidentalVisit", required = true)
     public IncidentalVisitBase getIncidentalVisit() {
         return incidentalVisit;
     }
@@ -64,7 +79,6 @@ public class Examination {
         this.incidentalVisit = incidentalVisit;
     }
 
-    @XmlElement(name = "adverseConditions", required = true)
     public AdverseConditionsBase getAdverseConditions() {
         return adverseConditions;
     }
@@ -73,7 +87,6 @@ public class Examination {
         this.adverseConditions = adverseConditions;
     }
 
-    @XmlElement(name = "diagnosis", required = true)
     public DiagnosisFull getDiagnosis() {
         return diagnosis;
     }
@@ -82,7 +95,6 @@ public class Examination {
         this.diagnosis = diagnosis;
     }
 
-    @XmlElement(name = "motherHealthcare", required = true)
     public MotherHealthcare getMotherHealthcare() {
         return motherHealthcare;
     }

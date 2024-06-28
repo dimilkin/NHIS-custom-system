@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class HeadersGenerator {
 
-    public static Header generateHeaders() {
+    public static Header generateHeaders(String messageTypeValue) {
         DoctorInfo doctorInfo = new DoctorInfo();
         Header header = new Header();
 
@@ -38,7 +38,7 @@ public class HeadersGenerator {
         header.setMessageId(messageId);
 
         MessageType messageType = new MessageType();
-        messageType.setValue("X001");
+        messageType.setValue(messageTypeValue);
         header.setMessageType(messageType);
 
         MessageCreatedOn createdOn = new MessageCreatedOn();

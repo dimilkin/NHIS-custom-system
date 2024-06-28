@@ -2,17 +2,14 @@ package com.nzis.ignatovsoft.nhis.models.nhis.x003;
 
 
 import com.nzis.ignatovsoft.nhis.models.generated.ContentsBase;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.*;
 
-@XmlRootElement(name = "contentsX003")
-@XmlType(propOrder = { "examination" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ContentsX003 extends ContentsBase {
 
+    @XmlElement(name = "examination", required = true)
     private Examination examination;
 
-    @XmlElement(name = "examination", required = true)
     public Examination getExamination() {
         return examination;
     }

@@ -8,14 +8,11 @@
 
 package com.nzis.ignatovsoft.nhis.models.generated;
 
-import java.io.Serializable;
-
 import com.nzis.ignatovsoft.nhis.models.nhis.x001.MessageX001;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlSeeAlso;
-import jakarta.xml.bind.annotation.XmlType;
+import com.nzis.ignatovsoft.nhis.models.nhis.x003.MessageX003;
+import jakarta.xml.bind.annotation.*;
+
+import java.io.Serializable;
 
 
 /**
@@ -43,7 +40,8 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
         Message.class,
-        MessageX001.class
+        MessageX001.class,
+        MessageX003.class
 })
 public class MessageBase
         implements Serializable {
@@ -52,22 +50,10 @@ public class MessageBase
     @XmlElement(required = true)
     protected Header header;
 
-    /**
-     * Gets the value of the header property.
-     *
-     * @return possible object is
-     * {@link Header }
-     */
     public Header getHeader() {
         return header;
     }
 
-    /**
-     * Sets the value of the header property.
-     *
-     * @param value allowed object is
-     *              {@link Header }
-     */
     public void setHeader(Header value) {
         this.header = value;
     }

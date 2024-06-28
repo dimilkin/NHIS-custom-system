@@ -1,6 +1,5 @@
 package com.nzis.ignatovsoft.nhis.services.mappers;
 
-import com.nzis.ignatovsoft.configurations.application.DoctorInfo;
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
 import com.nzis.ignatovsoft.nhis.models.nhis.x003.ContentsX003;
@@ -32,7 +31,7 @@ public class ExamClosingBodyX003Marshalling {
 
     private String marshalRequestBody(ExamDTO examDTO) throws JAXBException {
         ContentsX003 body = generateContents(examDTO);
-        Header header = generateHeaders();
+        Header header = generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_X003);
         MessageX003 messageX003 = new MessageX003();
         messageX003.setContents(body);
         messageX003.setHeader(header);
@@ -47,9 +46,8 @@ public class ExamClosingBodyX003Marshalling {
     }
 
     private ContentsX003 generateContents(ExamDTO examDTO) {
-        DoctorInfo doctorInfo = new DoctorInfo();
-        Examination examination = generateExamination(examDTO);
 
+        Examination examination = generateExamination(examDTO);
         ContentsX003 contentsX003 = new ContentsX003();
         contentsX003.setExamination(examination);
 
@@ -61,6 +59,8 @@ public class ExamClosingBodyX003Marshalling {
         NrnBase nrnBase = new NrnBase();
         nrnBase.setValue(examDTO.getNrnExamination());
         examination.setNrnExamination(nrnBase);
+
+
 
         IsSecondaryBase isSecondaryBase = new IsSecondaryBase();
         isSecondaryBase.setValue(examDTO.isSecondaryField());
@@ -109,11 +109,11 @@ public class ExamClosingBodyX003Marshalling {
         diagnosisFull.setRank(diagnosisRankBase);
 
         DiagnosisClinicalStatusBase diagnosisClinicalStatusBase = new DiagnosisClinicalStatusBase();
-        diagnosisClinicalStatusBase.setValue(examDTO.getClinicalStatus());
+        diagnosisClinicalStatusBase.setValue(null);
         diagnosisFull.setClinicalStatus(diagnosisClinicalStatusBase);
 
         DiagnosisVerificationStatusBase diagnosisVerificationStatusBase = new DiagnosisVerificationStatusBase();
-        diagnosisVerificationStatusBase.setValue(examDTO.getVerificationStatus());
+        diagnosisVerificationStatusBase.setValue(null);
         diagnosisFull.setVerificationStatus(diagnosisVerificationStatusBase);
 
         DiagnosisOnsetBase diagnosisOnsetBase = new DiagnosisOnsetBase();

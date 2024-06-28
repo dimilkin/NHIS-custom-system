@@ -2,7 +2,7 @@ package com.nzis.ignatovsoft.nhis.services;
 
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
-import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
+import com.nzis.ignatovsoft.nhis.models.nhis.x002.Message002;
 import com.nzis.ignatovsoft.nhis.services.mappers.ExamClosingBodyX003Marshalling;
 import com.nzis.ignatovsoft.nhis.services.mappers.InitialExamOpenerMarshaling;
 import jakarta.xml.bind.JAXBContext;
@@ -35,7 +35,7 @@ public class NetworkServiceImpl implements NetworkService {
             String signedRequest = digitalSignee.signXml(requestPayload);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://ptest-api.his.bg/v1/eexamination/examination/open"))
+                    .uri(URI.create("https://ptest-api.his.bg/v2/eexamination/examination/open"))
                     .header("Content-Type", "application/xml")
                     .header("Authorization", "Bearer " + authService.getAccessToken())
                     .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
@@ -43,12 +43,11 @@ public class NetworkServiceImpl implements NetworkService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(ContentsX002.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Message002.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            Message002 message = (Message002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
 
-            ContentsX002 message = (ContentsX002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
-
-            return message.getNrnExamination().getValue();
+            return message.getContents().getNrnExamination().getValue();
 
         } catch (IOException | InterruptedException | JAXBException e) {
             e.printStackTrace();
@@ -59,16 +58,25 @@ public class NetworkServiceImpl implements NetworkService {
     @Override
     public String sendExaminationCloseRequestX003(ExamDTO examDTO) {
         ExamClosingBodyX003Marshalling examClosingBodyX003Marshalling = new ExamClosingBodyX003Marshalling();
-        String marshaledRequest = examClosingBodyX003Marshalling.getMarshalledRequestBody(examDTO);
-        String signedRequest = digitalSignee.signXml(marshaledRequest);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ptest-api.his.bg/v1/eexamination/examination/open"))
-                .header("Content-Type", "application/xml")
-                .header("Authorization", "Bearer " + authService.getAccessToken())
-                .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
-                .build();
-        return null;
+        try {
+            String marshaledRequest = examClosingBodyX003Marshalling.getMarshalledRequestBody(examDTO);
+            String signedRequest = digitalSignee.signXml(marshaledRequest);
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://ptest-api.his.bg/v2/eexamination/examination/open"))
+                    .header("Content-Type", "application/xml")
+                    .header("Authorization", "Bearer " + authService.getAccessToken())
+                    .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            return response.body();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }
