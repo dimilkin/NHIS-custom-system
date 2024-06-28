@@ -88,11 +88,11 @@ public class ExamClosingBodyX003Marshalling {
         adverseConditionsBase.setValue(false);
         examination.setAdverseConditions(adverseConditionsBase);
 
-        MotherHealthcare motherHealthcare = generateMotherHealthcare(examDTO);
-        examination.setMotherHealthcare(motherHealthcare);
-
-        ChildHealthcare childHealthcare = new ChildHealthcare();
-        examination.setChildHealthcare(childHealthcare);
+//        MotherHealthcare motherHealthcare = generateMotherHealthcare(examDTO);
+//        examination.setMotherHealthcare(motherHealthcare);
+//
+//        ChildHealthcare childHealthcare = new ChildHealthcare();
+//        examination.setChildHealthcare(childHealthcare);
 
         List<ConsultationBasic> consultation = List.of();
         examination.setConsultation(consultation);
@@ -106,11 +106,11 @@ public class ExamClosingBodyX003Marshalling {
         List<DiagnosisFull> comorbidity = List.of();
         examination.setComorbidity(comorbidity);
 
-        Text4kBase medicalHistory = new Text4kBase();
-        examination.setMedicalHistory(medicalHistory);
-
-        Text4kBase objectiveCondition = new Text4kBase();
-        examination.setObjectiveCondition(objectiveCondition);
+//        Text4kBase medicalHistory = new Text4kBase();
+//        examination.setMedicalHistory(medicalHistory);
+//
+//        Text4kBase objectiveCondition = new Text4kBase();
+//        examination.setObjectiveCondition(objectiveCondition);
 
         List<Assessment> assessment = List.of();
         examination.setAssessment(assessment);
@@ -164,22 +164,22 @@ public class ExamClosingBodyX003Marshalling {
         return diagnosisFull;
     }
 
-    private MotherHealthcare generateMotherHealthcare(ExamDTO examDTO) {
-        MotherHealthcare motherHealthcare = new MotherHealthcare();
-        IsPregnantBase isPregnantBase = new IsPregnantBase();
-        isPregnantBase.setValue(examDTO.isPregnantField());
-        motherHealthcare.setIsPregnant(isPregnantBase);
-
-        IsBreastFeedingBase isBreastFeedingBase = new IsBreastFeedingBase();
-        isBreastFeedingBase.setValue(examDTO.isBreastFeedingField());
-        motherHealthcare.setIsBreastFeeding(isBreastFeedingBase);
-
-        GestationalWeekBase gestationalWeekBase = new GestationalWeekBase();
-        gestationalWeekBase.setValue(BigInteger.valueOf(examDTO.getGestationalWeekField()));
-        motherHealthcare.setGestationalWeek(gestationalWeekBase);
-
-        return motherHealthcare;
-    }
+//    private MotherHealthcare generateMotherHealthcare(ExamDTO examDTO) {
+//        MotherHealthcare motherHealthcare = new MotherHealthcare();
+//        IsPregnantBase isPregnantBase = new IsPregnantBase();
+//        isPregnantBase.setValue(examDTO.isPregnantField());
+//        motherHealthcare.setIsPregnant(isPregnantBase);
+//
+//        IsBreastFeedingBase isBreastFeedingBase = new IsBreastFeedingBase();
+//        isBreastFeedingBase.setValue(examDTO.isBreastFeedingField());
+//        motherHealthcare.setIsBreastFeeding(isBreastFeedingBase);
+//
+//        GestationalWeekBase gestationalWeekBase = new GestationalWeekBase();
+//        gestationalWeekBase.setValue(BigInteger.valueOf(examDTO.getGestationalWeekField()));
+//        motherHealthcare.setGestationalWeek(gestationalWeekBase);
+//
+//        return motherHealthcare;
+//    }
 
 
     private String getRandomUUID () {

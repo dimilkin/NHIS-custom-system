@@ -17,8 +17,8 @@ public class ExaminationFull {
     private PurposeBase purpose;
     private IncidentalVisitBase incidentalVisit;
     private AdverseConditionsBase adverseConditions;
-    private MotherHealthcare motherHealthcare;
-    private ChildHealthcare childHealthcare;
+//    private MotherHealthcare motherHealthcare;
+//    private ChildHealthcare childHealthcare;
     private ConsultationBasic consultation;
     private Documents documents;
     private DiagnosisFull diagnosis;
@@ -94,22 +94,22 @@ public class ExaminationFull {
     public void setAdverseConditions(AdverseConditionsBase adverseConditions) {
         this.adverseConditions = adverseConditions;
     }
-
-    public MotherHealthcare getMotherHealthcare() {
-        return motherHealthcare;
-    }
-
-    public void setMotherHealthcare(MotherHealthcare motherHealthcare) {
-        this.motherHealthcare = motherHealthcare;
-    }
-
-    public ChildHealthcare getChildHealthcare() {
-        return childHealthcare;
-    }
-
-    public void setChildHealthcare(ChildHealthcare childHealthcare) {
-        this.childHealthcare = childHealthcare;
-    }
+//
+//    public MotherHealthcare getMotherHealthcare() {
+//        return motherHealthcare;
+//    }
+//
+//    public void setMotherHealthcare(MotherHealthcare motherHealthcare) {
+//        this.motherHealthcare = motherHealthcare;
+//    }
+//
+//    public ChildHealthcare getChildHealthcare() {
+//        return childHealthcare;
+//    }
+//
+//    public void setChildHealthcare(ChildHealthcare childHealthcare) {
+//        this.childHealthcare = childHealthcare;
+//    }
 
     public ConsultationBasic getConsultation() {
         return consultation;

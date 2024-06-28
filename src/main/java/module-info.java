@@ -28,6 +28,7 @@ module com.nzis.ignatovsoft {
     opens com.nzis.ignatovsoft.front.controllers to javafx.fxml;
     opens com.nzis.ignatovsoft.nhis.models.nhis.x002 to jakarta.xml.bind;
     opens com.nzis.ignatovsoft.nhis.models.nhis.x003 to jakarta.xml.bind;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.x003.base to org.glassfish.jaxb.runtime;
 
 
     exports com.nzis.ignatovsoft;

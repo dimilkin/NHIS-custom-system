@@ -68,20 +68,20 @@ public class NetworkServiceImpl implements NetworkService {
         ExamClosingBodyX003Marshalling examClosingBodyX003Marshalling = new ExamClosingBodyX003Marshalling();
 
         try {
-        String marshaledRequest = examClosingBodyX003Marshalling.getMarshalledRequestBody(examDTO);
-        String signedRequest = digitalSignee.signXml(marshaledRequest);
+            String marshaledRequest = examClosingBodyX003Marshalling.getMarshalledRequestBody(examDTO);
+            String signedRequest = digitalSignee.signXml(marshaledRequest);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://ptest-api.his.bg/v2/eexamination/examination/close"))
-                .header("Content-Type", "application/xml")
-                .header("Authorization", "Bearer " + authService.getAccessToken())
-                .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
-                .build();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://ptest-api.his.bg/v2/eexamination/examination/close"))
+                    .header("Content-Type", "application/xml")
+                    .header("Authorization", "Bearer " + authService.getAccessToken())
+                    .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
+                    .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return response.body();
+            return response.body();
 
         } catch (Exception e) {
             e.printStackTrace();
