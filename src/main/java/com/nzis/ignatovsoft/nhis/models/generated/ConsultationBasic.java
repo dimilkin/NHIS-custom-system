@@ -8,11 +8,12 @@
 
 package com.nzis.ignatovsoft.nhis.models.generated;
 
-import java.io.Serializable;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.io.Serializable;
 
 
 /**
@@ -51,14 +52,15 @@ public class ConsultationBasic
 {
 
     private final static long serialVersionUID = -1L;
-    @XmlElement(required = true)
+    @XmlElement(name ="nrnConsultation", required = true, namespace = "https://www.his.bg")
     protected NrnBase nrnConsultation;
-    @XmlElement(required = true)
+    @XmlElement(name = "qualification", required = true, namespace = "https://www.his.bg")
     protected QualificationBase qualification;
-    @XmlElement(required = true)
+    @XmlElement(name="directedOn", required = true, namespace = "https://www.his.bg")
     protected TimestampBase directedOn;
-    @XmlElement(required = true)
+    @XmlElement(name="performedOn", required = true, namespace = "https://www.his.bg")
     protected TimestampBase performedOn;
+    @XmlElement(name="note", namespace = "https://www.his.bg", required = false)
     protected Text4KBase note;
 
     /**

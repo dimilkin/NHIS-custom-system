@@ -16,6 +16,19 @@ public class PatientDTO {
     public PatientDTO() {
     }
 
+    public PatientDTO(String identifierType, String identifierValue, String birthDay, String gender, String firstName, String middleName, String lastname, String addressCountry, String addressCounty, String addressCity) {
+        this.identifierType = identifierType;
+        this.identifierValue = identifierValue;
+        this.birthDay = birthDay;
+        this.gender = gender;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastname = lastname;
+        this.addressCountry = addressCountry;
+        this.addressCounty = addressCounty;
+        this.addressCity = addressCity;
+    }
+
     public String getIdentifierType() {
         return identifierType;
     }

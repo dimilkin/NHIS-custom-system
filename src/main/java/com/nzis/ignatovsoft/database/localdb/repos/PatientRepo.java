@@ -7,4 +7,6 @@ import java.util.List;
 public interface PatientRepo {
 
     List<PatientDbModel> getAllPatientsFromDatabase();
+
+    void savePatient(PatientDbModel patientDbModel);
 }

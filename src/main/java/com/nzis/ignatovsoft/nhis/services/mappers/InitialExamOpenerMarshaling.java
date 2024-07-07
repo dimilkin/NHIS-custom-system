@@ -35,7 +35,7 @@ public class InitialExamOpenerMarshaling {
     private String marshalRequestBody (PatientDTO patientDTO) throws DatatypeConfigurationException, JAXBException {
         ContentsX001 body = generateContents(patientDTO
         );
-        Header header = generateHeaders();
+        Header header = generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_X001);
         MessageX001 messageX001 = new MessageX001();
         messageX001.setContents(body);
         messageX001.setHeader(header);

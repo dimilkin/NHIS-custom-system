@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" styleClass="vbox" stylesheets="@../styles/patient_details.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nzis.ignatovsoft.front.controllers.NewPatientDetailsController">
+<VBox alignment="CENTER" prefHeight="557.0" prefWidth="454.0" styleClass="vbox" stylesheets="@../styles/patient_details.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nzis.ignatovsoft.front.controllers.NewPatientDetailsController">
 
     <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 10px;" text="New Patient" />
 
-    <GridPane alignment="CENTER" hgap="10" vgap="10">
+    <GridPane alignment="CENTER" hgap="10" prefHeight="309.0" prefWidth="443.0" vgap="10">
 
         <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -27,38 +27,35 @@
         <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <Label text="Identifier:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <ComboBox fx:id="идентифиерComboBox" prefHeight="25.0" prefWidth="159.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField fx:id="identifierField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <ComboBox fx:id="identifierComboBox" prefHeight="25.0" prefWidth="159.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="identifierValueField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 
         <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label text="Country of Origin:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <ComboBox fx:id="countryComboBox" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="Country of Origin:" GridPane.rowIndex="7" />
+        <ComboBox fx:id="countryComboBox" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-        <Label text="City:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <ComboBox fx:id="cityComboBox" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="County of Origin:" GridPane.rowIndex="6" />
+        <ComboBox fx:id="countyBox" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-        <Label text="Birth Date:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label text="City:" GridPane.rowIndex="5" />
+        <TextField fx:id="addressCityName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label text="Gender" GridPane.rowIndex="8" />
+        <ComboBox fx:id="genderBox" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+        <Label text="Birth Date:" GridPane.rowIndex="9" />
+        <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
         <columnConstraints>
             <ColumnConstraints />
-            <ColumnConstraints maxWidth="190.66666666666663" minWidth="137.3333841959635" prefWidth="155.99997965494788" />
-         <ColumnConstraints maxWidth="186.66661580403644" minWidth="133.33333333333331" prefWidth="168.00002034505206" />
+            <ColumnConstraints maxWidth="190" minWidth="140" prefWidth="160" />
+         <ColumnConstraints maxWidth="190" minWidth="140" prefWidth="168" />
         </columnConstraints>
-        <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-        </rowConstraints>
-
-
     </GridPane>
+
+    <Label fx:id="errorTextField" style="-fx-font-size: 16px; -fx-text-fill: #8B0000; -fx-padding: 10px;" text="Error" />
 
     <Button fx:id="saveButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" styleClass="save-patient-button" text="Save">
         <VBox.margin>

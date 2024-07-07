@@ -8,11 +8,12 @@
 
 package com.nzis.ignatovsoft.nhis.models.generated;
 
-import java.io.Serializable;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.io.Serializable;
 
 
 /**
@@ -56,8 +57,11 @@ public class DiagnosisFull
     protected DiagnosisUseBase use;
     @XmlElement(required = true)
     protected DiagnosisRankBase rank;
+    @XmlElement(required = false)
     protected DiagnosisClinicalStatusBase clinicalStatus;
+    @XmlElement(required = false)
     protected DiagnosisVerificationStatusBase verificationStatus;
+    @XmlElement(required = false)
     protected DiagnosisOnsetBase onsetDateTime;
 
     /**
