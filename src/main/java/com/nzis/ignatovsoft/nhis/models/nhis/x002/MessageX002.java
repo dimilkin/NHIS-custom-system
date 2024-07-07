@@ -8,7 +8,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "message", namespace = "https://www.his.bg")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Message002 {
+public class MessageX002 {
     @XmlElement(name = "header", namespace = "https://www.his.bg")
     private Header header;
     @XmlElement(name = "contents", namespace = "https://www.his.bg")

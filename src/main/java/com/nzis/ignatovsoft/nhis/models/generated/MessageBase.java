@@ -8,8 +8,6 @@
 
 package com.nzis.ignatovsoft.nhis.models.generated;
 
-import com.nzis.ignatovsoft.nhis.models.nhis.x001.MessageX001;
-import com.nzis.ignatovsoft.nhis.models.nhis.x003.MessageX003;
 import jakarta.xml.bind.annotation.*;
 
 import java.io.Serializable;
@@ -39,9 +37,13 @@ import java.io.Serializable;
         "header"
 })
 @XmlSeeAlso({
-        Message.class,
-        MessageX001.class,
-        MessageX003.class
+//        Message.class,
+//        MessageX001.class,
+//        MessageX003.class,
+//        com.nzis.ignatovsoft.nhis.models.nhis.x002.MessageX002.class,
+//        com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c001.MessageC001.class,
+//        com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.MessageC002.class,
+
 })
 public class MessageBase
         implements Serializable {

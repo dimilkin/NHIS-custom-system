@@ -17,8 +17,20 @@ public class PatientsRepoImpl implements PatientRepo {
 
     @Override
     public List<PatientDbModel> getAllPatientsFromDatabase() {
-        Query<PatientDbModel> query=  session.createQuery("FROM PatientDbModel", PatientDbModel.class);
-        List<PatientDbModel> patients =query.list();
+        Query<PatientDbModel> query = session.createQuery("FROM PatientDbModel", PatientDbModel.class);
+        List<PatientDbModel> patients = query.list();
         return patients;
+    }
+
+    @Override
+    public void savePatient(PatientDbModel patientDbModel) {
+        try {
+            session.beginTransaction();
+            session.persist(patientDbModel);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
     }
 }

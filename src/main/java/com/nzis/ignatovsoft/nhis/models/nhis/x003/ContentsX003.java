@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContentsX003 extends ContentsBase {
 
-    @XmlElement(name = "examination", required = true)
+    @XmlElement(name = "examination", namespace = "https://www.his.bg", required = true)
     private Examination examination;
 
     public Examination getExamination() {
