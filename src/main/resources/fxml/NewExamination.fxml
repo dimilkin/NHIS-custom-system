@@ -1,97 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="537.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nzis.ignatovsoft.front.controllers.NewExamController">
-   <Text layoutX="291.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пациент - ЕГН :" wrappingWidth="92.66666666666663" />
+<AnchorPane prefHeight="537.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../styles/patient_details.css"
+            fx:controller="com.nzis.ignatovsoft.front.controllers.NewExamController">
+    <Text layoutX="291.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пациент - ЕГН :"
+          wrappingWidth="95"/>
+    <TextField fx:id="patientIdentifierValue" layoutX="384.0" layoutY="38.0"/>
     <SplitPane dividerPositions="0.5037700282752121" layoutX="-1.0" layoutY="79.0" prefHeight="339.0" prefWidth="767.0">
         <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <GridPane alignment="CENTER" hgap="10" layoutX="42.0" layoutY="14.0" prefHeight="208.0" prefWidth="298.0" vgap="10">
+                <GridPane alignment="CENTER" hgap="10" layoutX="42.0" layoutY="14.0" prefHeight="208.0"
+                          prefWidth="298.0" vgap="10">
 
 
-                    <Label text="Is Secondary:" GridPane.rowIndex="2" />
-                    <CheckBox fx:id="isSecondaryField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label text="Is Secondary:" GridPane.rowIndex="2"/>
+                    <CheckBox fx:id="isSecondaryField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-                    <Label text="Purpose:" GridPane.rowIndex="3" />
-                    <ComboBox fx:id="purposeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Label text="Purpose:" GridPane.rowIndex="3"/>
+                    <ComboBox fx:id="purposeField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-                    <Label text="Gestational Week:" GridPane.rowIndex="4" />
-                    <TextField fx:id="gestationalWeekField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Label text="Gestational Week:" GridPane.rowIndex="4"/>
+                    <TextField fx:id="gestationalWeekField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-                    <Label text="Is Pregnant:" GridPane.rowIndex="5" />
-                    <CheckBox fx:id="isPregnantField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label text="Is Pregnant:" GridPane.rowIndex="5"/>
+                    <CheckBox fx:id="isPregnantField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-                    <Label text="Is Breast Feeding:" GridPane.rowIndex="6" />
-                    <CheckBox fx:id="isBreastFeedingField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <Label text="Is Breast Feeding:" GridPane.rowIndex="6"/>
+                    <CheckBox fx:id="isBreastFeedingField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
-                    <Label text="Exam Status:" GridPane.rowIndex="7" />
-                    <TextField fx:id="examStatusField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
+                    <Label text="Exam Status:" GridPane.rowIndex="7"/>
+                    <TextField fx:id="examStatusField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
                 </GridPane>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="475.0" prefWidth="387.0">
-                <GridPane alignment="CENTER" hgap="10" layoutX="39.0" layoutY="14.0" prefHeight="257.0" prefWidth="298.0" vgap="10">
+                <GridPane alignment="CENTER" hgap="10" layoutX="39.0" layoutY="14.0" prefHeight="257.0"
+                          prefWidth="298.0" vgap="10">
 
-                    <Label text="ICD Code:" GridPane.rowIndex="3" />
-                    <ComboBox fx:id="ICDCode" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <Label text="Additional ICD Code Week:" GridPane.rowIndex="4" />
-                    <ComboBox fx:id="additionalIcdCode" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label text="Diagnosis use:" GridPane.rowIndex="5" />
-                    <ComboBox fx:id="diagnosisUse" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <Label text="Diagnosis Rank:" GridPane.rowIndex="6" />
-                    <TextField fx:id="diagnosisRank" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                    <Label text="Clinical Status:" GridPane.rowIndex="7" />
-                    <ComboBox fx:id="clinicalStatus" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                    <Label text="Verification Status:" GridPane.rowIndex="8" />
-                    <ComboBox fx:id="verificationStatus" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                    <Label text="Notes:" GridPane.rowIndex="9" />
-                    <TextField fx:id="notes" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
+                    <Label text="ICD Code:" GridPane.rowIndex="3"/>
+                    <ComboBox fx:id="ICDCode" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <Label text="Additional ICD Code Week:" GridPane.rowIndex="4"/>
+                    <ComboBox fx:id="additionalIcdCode" maxWidth="250.0" GridPane.columnIndex="1"
+                              GridPane.rowIndex="4"/>
+                    <Label text="Diagnosis use:" GridPane.rowIndex="5"/>
+                    <ComboBox fx:id="diagnosisUse" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                    <Label text="Diagnosis Rank:" GridPane.rowIndex="6"/>
+                    <TextField fx:id="diagnosisRank" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                    <Label text="Clinical Status:" GridPane.rowIndex="7"/>
+                    <ComboBox fx:id="clinicalStatus" maxWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                    <Label text="Verification Status:" GridPane.rowIndex="8"/>
+                    <ComboBox fx:id="verificationStatus" maxWidth="250.0" GridPane.columnIndex="1"
+                              GridPane.rowIndex="8"/>
+                    <Label text="Notes:" GridPane.rowIndex="9"/>
+                    <TextField fx:id="notes" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
                 </GridPane>
             </AnchorPane>
         </items>
     </SplitPane>
-    <Button fx:id="saveExamButton" layoutX="357.0" layoutY="450.0" mnemonicParsing="false" text="Запази" />
-   <TextField layoutX="384.0" layoutY="38.0" />
-
-
+    <Button fx:id="saveExamButton" layoutX="357.0" layoutY="450.0" mnemonicParsing="false" text="Запази"/>
 </AnchorPane>

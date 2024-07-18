@@ -13,7 +13,7 @@ public class PracticeInfo {
     private  String practiceName;;
     private  String practiceAddress;
     private String doctorName;
-    private String doctorPhone;
+    private String doctorsQualification;
     private String doctorId;
     private String signerPin;
 
@@ -24,7 +24,7 @@ public class PracticeInfo {
         this.practiceName = practiceName;
         this.practiceAddress = practiceAddress;
         this.doctorName = doctorName;
-        this.doctorPhone = doctorPhone;
+        this.doctorsQualification = doctorPhone;
         this.doctorId = doctorId;
         this.signerPin = signerPin;
     }
@@ -61,12 +61,12 @@ public class PracticeInfo {
         this.doctorName = doctorName;
     }
 
-    public String getDoctorPhone() {
-        return doctorPhone;
+    public String getDoctorsQualification() {
+        return doctorsQualification;
     }
 
-    public void setDoctorPhone(String doctorPhone) {
-        this.doctorPhone = doctorPhone;
+    public void setDoctorsQualification(String doctorPhone) {
+        this.doctorsQualification = doctorPhone;
     }
 
     public String getDoctorId() {

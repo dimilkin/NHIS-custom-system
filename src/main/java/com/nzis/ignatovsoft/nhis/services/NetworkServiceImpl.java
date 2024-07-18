@@ -4,6 +4,7 @@ import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.MessageC002;
+import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
 import com.nzis.ignatovsoft.nhis.models.nhis.x002.MessageX002;
 import com.nzis.ignatovsoft.nhis.services.mappers.ExamClosingBodyX003Marshalling;
 import com.nzis.ignatovsoft.nhis.services.mappers.InitialExamOpenerMarshaling;
@@ -32,7 +33,7 @@ public class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public String sendExaminationOpenRequestX001(PatientDTO patientDTO) {
+    public ContentsX002 sendExaminationOpenRequestX001(PatientDTO patientDTO) {
         InitialExamOpenerMarshaling initialExamOpenerMarshaling = new InitialExamOpenerMarshaling();
 
         try {
@@ -52,16 +53,16 @@ public class NetworkServiceImpl implements NetworkService {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             MessageX002 message = (MessageX002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
 
-            return message.getContents().getNrnExamination().getValue();
+            return message.getContents();
 
         } catch (IOException | InterruptedException | JAXBException e) {
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
 
     @Override
-    public String sendExaminationCloseRequestX003(ExamDTO examDTO) {
+    public int sendExaminationCloseRequestX003(ExamDTO examDTO) {
         ExamClosingBodyX003Marshalling examClosingBodyX003Marshalling = new ExamClosingBodyX003Marshalling();
 
         try {
@@ -78,10 +79,10 @@ public class NetworkServiceImpl implements NetworkService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            return response.body();
+            return response.statusCode();
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return 0;
         }
     }
 

@@ -1,17 +1,21 @@
 package com.nzis.ignatovsoft.front.controllers;
 
 import com.nzis.ignatovsoft.NomeConstants;
+import com.nzis.ignatovsoft.database.localdb.models.PatientDbModel;
 import com.nzis.ignatovsoft.dataservices.PatientsDataService;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
+import com.nzis.ignatovsoft.front.events.PatientUpdateEventHandler;
+import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Description;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
+import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Key;
 import com.nzis.ignatovsoft.nhis.services.NomenclatureService;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewPatientDetailsController implements Initializable {
@@ -30,9 +34,11 @@ public class NewPatientDetailsController implements Initializable {
     public DatePicker birthDatePicker;
     public Button saveButton;
     public Label errorTextField;
+    public Label addEditPatientTitle;
 
-    private PatientsDataService patientsDataService;
-
+    private final PatientsDataService patientsDataService;
+    private boolean isEdit = false;
+    private String editedPatientIdentifier;
 
 
     public NewPatientDetailsController() {
@@ -43,32 +49,48 @@ public class NewPatientDetailsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         errorTextField.setVisible(false);
         new Thread(() -> {
-        identifierComboBox.setItems(getNomenclatures(NomeConstants.IDENTIFIER_TYPE));
-        countryComboBox.setItems(getNomenclatures(NomeConstants.ADDRESS_COUNTRY));
-        countyBox.setItems(getNomenclatures(NomeConstants.ADDRESS_COUNTY));
-        genderBox.setItems(getNomenclatures(NomeConstants.GENDER_CODE));
+            identifierComboBox.setItems(getNomenclatures(NomeConstants.IDENTIFIER_TYPE));
+            countryComboBox.setItems(getNomenclatures(NomeConstants.ADDRESS_COUNTRY));
+            countyBox.setItems(getNomenclatures(NomeConstants.ADDRESS_COUNTY));
+            genderBox.setItems(getNomenclatures(NomeConstants.GENDER_CODE));
         }).start();
         saveButton.setOnMouseClicked(e -> {
-            savePatientToDb();
-
+            if (isEdit) {
+                updatePatient();
+                PatientUpdateEventHandler patientUpdateEventHandler = PatientUpdateEventHandler.getInstance();
+                patientUpdateEventHandler.setPatientUpdated(true);
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                stage.close();
+            } else {
+                savePatientToDb();
+            }
         });
     }
 
-    private void savePatientToDb() {
+    private void updatePatient() {
+        PatientDTO patientDTO;
         try {
-            PatientDTO patientDTO = generatePatientDto();
-            patientsDataService.savePatient(patientDTO);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("No data");
+            patientDTO = generatePatientDto();
+            PatientDTO existingPatient = patientsDataService.getPatientByIdentifierValue(editedPatientIdentifier);
+            patientDTO.setId(existingPatient.getId());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Възникна грешка при запазването на данните на пациента", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (patientsDataService.updatePatient(patientDTO)) {
+            JOptionPane.showMessageDialog(null, "Данните на пациента са запазени успешно", "Успех", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Възникна грешка при запазването на данните на пациента", "Грешка", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private ObservableList<Entry> getNomenclatures(String code) {
-        return FXCollections.observableArrayList(fetchNomenclatures(code));
-    }
-
-    private List<Entry> fetchNomenclatures(String code) {
-        return NomenclatureService.getInstance().getNomenclaturesForCode(code);
+    private void savePatientToDb() {
+        PatientDTO patientDTO = generatePatientDto();
+        if (patientsDataService.savePatient(patientDTO)) {
+            JOptionPane.showMessageDialog(null, "Данните на пациента са запазени успешно", "Успех", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Възникна грешка при запазването на данните на пациента", "Грешка", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public PatientDTO generatePatientDto() {
@@ -122,8 +144,55 @@ public class NewPatientDetailsController implements Initializable {
         }
     }
 
-    private void showErrorMessage (String message) {
+    private void showErrorMessage(String message) {
         errorTextField.setText(message);
         errorTextField.setVisible(true);
+    }
+
+    public void setPatientData(PatientDbModel selectedPatient) {
+        isEdit = true;
+        addEditPatientTitle.setText("Промяна на данните на пациент");
+        firstNameField.setText(selectedPatient.getFirstName());
+        middleNameField.setText(selectedPatient.getMiddleName());
+        lastNameField.setText(selectedPatient.getLastName());
+        identifierValueField.setText(selectedPatient.getIdentifier());
+        editedPatientIdentifier = selectedPatient.getIdentifier();
+        addressField.setText(selectedPatient.getAddressCity());
+        addressCityName.setText(selectedPatient.getAddressCity());
+        birthDatePicker.setValue(selectedPatient.getBirthDate());
+
+        Entry identifierEntry = new Entry();
+        Key key = new Key();
+        key.setValue(selectedPatient.getIdentifierType());
+        identifierEntry.setKey(key);
+        identifierComboBox.setValue(identifierEntry);
+
+        identifierComboBox.setValue(identifierEntry);
+
+        Entry genderEntry = new Entry();
+        Key genderKey = new Key();
+        genderKey.setValue(selectedPatient.getGender());
+        genderEntry.setKey(genderKey);
+
+        Entry countryEntry = new Entry();
+        Key countryKey = new Key();
+        countryKey.setValue(selectedPatient.getAddressCountry());
+        countryEntry.setKey(countryKey);
+
+        Entry countyEntry = new Entry();
+        Key countyKey = new Key();
+        countyKey.setValue(selectedPatient.getAddressCounty());
+        countyEntry.setKey(countyKey);
+        Description description = new Description();
+        description.setValue(selectedPatient.getAddressCounty());
+        countyEntry.setDescription(description);
+
+        genderBox.setValue(genderEntry);
+        countryComboBox.setValue(countryEntry);
+        countyBox.setValue(countyEntry);
+    }
+
+    private ObservableList<Entry> getNomenclatures(String identifierType) {
+        return NomenclatureService.getInstance().getObservableNomenclatures(identifierType);
     }
 }

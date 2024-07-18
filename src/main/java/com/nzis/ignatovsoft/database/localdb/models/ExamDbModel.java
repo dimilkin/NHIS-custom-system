@@ -21,20 +21,22 @@ public class ExamDbModel {
     private String gestationalWeek;
     private boolean isPregnant;
     private boolean isBreastFeeding;
-    private String examStatus;;
+    private String examStatus;
+    @Column(name = "exam_nhis_status_code")
+    private int examNHISStatusCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private PatientDbModel patient;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
     private DiagnosisDbModel diagnosis;
 
     public ExamDbModel() {
     }
 
-    public ExamDbModel(String lrn, String nrn, boolean isSecondary, LocalDateTime closeDate, String purpose, String gestationalWeek, boolean isPregnant, boolean isBreastFeeding, String examStatus, PatientDbModel patient, DiagnosisDbModel diagnosis) {
+    public ExamDbModel(String lrn, String nrn, boolean isSecondary, LocalDateTime closeDate, String purpose, String gestationalWeek, boolean isPregnant, boolean isBreastFeeding, String examStatus, PatientDbModel patient, DiagnosisDbModel diagnosis, int examNHISStatusCode) {
         this.lrn = lrn;
         this.nrn = nrn;
         this.isSecondary = isSecondary;
@@ -46,6 +48,7 @@ public class ExamDbModel {
         this.examStatus = examStatus;
         this.patient = patient;
         this.diagnosis = diagnosis;
+        this.examNHISStatusCode = examNHISStatusCode;
     }
 
     public long getId() {
@@ -142,6 +145,14 @@ public class ExamDbModel {
 
     public void setDiagnosis(DiagnosisDbModel diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    public int getExamNHISStatusCode() {
+        return examNHISStatusCode;
+    }
+
+    public void setExamNHISStatusCode(int examNHISStatusCode) {
+        this.examNHISStatusCode = examNHISStatusCode;
     }
 
     @Override

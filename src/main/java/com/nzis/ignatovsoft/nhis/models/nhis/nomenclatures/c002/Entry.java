@@ -14,7 +14,8 @@ import java.util.List;
         "description",
         "meta"
 })
-public class Entry {
+public class
+Entry {
 
     @XmlElement(name = "key", namespace = "https://www.his.bg", required = true)
     protected Key key;
@@ -51,6 +52,9 @@ public class Entry {
 
     @Override
     public String toString() {
-        return description.getValue();
+        if (description != null){
+            return description.getValue();
+        }
+        return "";
     }
 }

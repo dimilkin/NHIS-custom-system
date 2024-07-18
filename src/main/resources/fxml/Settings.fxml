@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="557.0" prefWidth="454.0" styleClass="vbox"
+      stylesheets="@../styles/patient_details.css" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nzis.ignatovsoft.front.controllers.SettingsController">
+
+    <children>
+        <Label fx:id="addEditPatientTitle" prefHeight="35.0" prefWidth="150.0"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 10px;" text="Настройки"/>
+        <GridPane alignment="CENTER" hgap="10" prefHeight="211.0" prefWidth="443.0" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints maxWidth="141.33334096272785" minWidth="108.00002034505208"
+                                   prefWidth="141.33334096272785"/>
+                <ColumnConstraints maxWidth="190.0" minWidth="117.99999237060547" prefWidth="162.66666666666666"/>
+            </columnConstraints>
+            <children>
+
+                <Label text="Име на практиката:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="practiceName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="УИН :" GridPane.rowIndex="2"/>
+                <TextField fx:id="doctorsId" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Специалност:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="doctorsQualification" prefHeight="25.0" prefWidth="159.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="ПИН на токена" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="tokenPin" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            </children>
+
+        </GridPane>
+        <Label fx:id="errorTextField" prefHeight="108.0" prefWidth="75.0"
+               style="-fx-font-size: 16px; -fx-text-fill: #8B0000; -fx-padding: 10px;" text="Грешка"/>
+        <Button fx:id="saveButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0"
+                styleClass="save-patient-button" text="Запази"/>
+    </children>
+</VBox>

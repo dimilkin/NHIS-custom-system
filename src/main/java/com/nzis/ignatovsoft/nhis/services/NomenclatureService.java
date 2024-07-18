@@ -1,6 +1,8 @@
 package com.nzis.ignatovsoft.nhis.services;
 
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +35,10 @@ public class NomenclatureService {
         return instance;
     }
 
+    public ObservableList<Entry> getObservableNomenclatures(String code) {
+        return FXCollections.observableArrayList(getNomenclaturesForCode(code));
+    }
+
     public List<Entry> getNomenclaturesForCode(String code) {
         if (nomenclaturesCache.containsKey(code)) {
             return nomenclaturesCache.get(code);
@@ -40,6 +46,15 @@ public class NomenclatureService {
         List<Entry> nomenclatures = networkService.getNomenclaturesC002(code).join();
         nomenclaturesCache.put(code, nomenclatures);
         return nomenclatures;
+    }
+
+    public Entry getCorrectValue(String keyValue, String code) {
+        for (Entry entry : getNomenclaturesForCode(code)) {
+            if (entry.getKey().getValue().equals(keyValue)) {
+                return entry;
+            }
+        }
+        return null;
     }
 
     private void clearCache() {

@@ -14,6 +14,8 @@ public class  PatientDbModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String identifierType;
+
+    @Column(unique = true)
     private String identifier; //CL004
     private String nhifInsuranceNumber;
     private LocalDate birthDate;
@@ -28,7 +30,7 @@ public class  PatientDbModel {
     private String phone;
     private String email;
 
-    @OneToMany(mappedBy="patient",  fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="patient",  fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ExamDbModel> exams;
 
     public PatientDbModel() {

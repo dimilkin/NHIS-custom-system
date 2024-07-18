@@ -1,8 +1,12 @@
 package com.nzis.ignatovsoft.front.controllers;
 
+import com.nzis.ignatovsoft.dataservices.ExamsDataService;
+import com.nzis.ignatovsoft.dataservices.PatientsDataService;
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
+import com.nzis.ignatovsoft.exceptions.NoEntityFoundException;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
+import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
 import com.nzis.ignatovsoft.nhis.services.NetworkService;
 import com.nzis.ignatovsoft.nhis.services.NetworkServiceImpl;
 import com.nzis.ignatovsoft.nhis.services.NomenclatureService;
@@ -14,6 +18,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import javax.swing.*;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
@@ -41,10 +46,14 @@ public class NewExamController implements Initializable {
     public Button saveExamButton;
     public TextField patientIdentifierValue;
 
-    NetworkService networkService;
+    private final NetworkService networkService;
+    private final PatientsDataService patientsDataService;
+    private final ExamsDataService examsDataService;
 
     public NewExamController() {
         this.networkService = new NetworkServiceImpl();
+        this.patientsDataService = new PatientsDataService();
+        examsDataService = new ExamsDataService();
     }
 
     @Override
@@ -58,59 +67,65 @@ public class NewExamController implements Initializable {
 //            purposeField.setItems(getNomenclatures(DIAGNOSIS_PURPOSE_FIELD));
         }).start();
         saveExamButton.setOnAction(e -> {
-//            sendExamData();
+            sendExamData(patientIdentifierValue.getText());
         });
     }
 
-    private void sendExamData() {
-        PatientDTO patientDTO = generatePatientDTO();
-        String nrn = networkService.sendExaminationOpenRequestX001(patientDTO);
-        ExamDTO examDTO = generateExamDTO(nrn);
-        examDTO.setNrnExamination(nrn);
-        networkService.sendExaminationCloseRequestX003(examDTO);
+    private void sendExamData(String patientIdentifierValue) {
+        try {
+            checkDataForErrors();
+            PatientDTO patientDTO = generatePatientDTO(patientIdentifierValue);
+            ContentsX002 contentsX002 = networkService.sendExaminationOpenRequestX001(patientDTO);
+            ExamDTO examDTO = generateExamDTO(contentsX002);
+            int response = networkService.sendExaminationCloseRequestX003(examDTO);
+            examDTO.setExamNHISStatusCode(response);
+            examsDataService.saveExam(examDTO, patientIdentifierValue);
+            JOptionPane.showMessageDialog(null, "Изследването е записано успешно", "Успех", JOptionPane.INFORMATION_MESSAGE);
+            resetFields();
+        } catch (NoEntityFoundException e) {
+            JOptionPane.showMessageDialog(null, "Не е намерен пациент със зададеното ЕГН", "Грешка", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Грешка", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private ExamDTO generateExamDTO(String nrn) {
+    private ExamDTO generateExamDTO(ContentsX002 contentsX002) {
         ExamDTO examDTO = new ExamDTO();
 
-        examDTO.setNrnExamination(nrn);
-        examDTO.setICDCode("Z34");
-        examDTO.setAdditionalIcdCode("Z34.0");
-        examDTO.setDiagnosisUse("3");
-        examDTO.setDiagnosisRank(BigInteger.ONE);
-        examDTO.setClinicalStatus("10");
-        examDTO.setVerificationStatus("20");
-        examDTO.setNotes("notes");
-        examDTO.setSecondaryField(false);
+        examDTO.setNrnExamination(contentsX002.getNrnExamination().getValue());
+        examDTO.setLrnExamination(contentsX002.getLrn().getValue());
+        examDTO.setICDCode(ICDCode.getValue().getKey().getValue());
+        examDTO.setAdditionalIcdCode(additionalIcdCode.getValue() != null? additionalIcdCode.getValue().getKey().getValue() : null);
+        examDTO.setDiagnosisUse(diagnosisUse.getValue().getKey().getValue());
+        examDTO.setDiagnosisRank(new BigInteger(diagnosisRank.getText()));
+        examDTO.setClinicalStatus(clinicalStatus.getValue().getKey().getValue());
+        examDTO.setVerificationStatus(verificationStatus.getValue().getKey().getValue());
+        examDTO.setNotes(notes.getText());
+        examDTO.setSecondaryField(isSecondaryField.isSelected());
         examDTO.setPurposeField("4");
-        examDTO.setGestationalWeekField(BigInteger.valueOf(24));
-        examDTO.setPregnantField(true);
-        examDTO.setBreastFeedingField(false);
+        examDTO.setGestationalWeekField(new BigInteger(gestationalWeekField.getText()));
+        examDTO.setPregnantField(isPregnantField.isSelected());
+        examDTO.setBreastFeedingField(isBreastFeedingField.isSelected());
 
         return examDTO;
     }
 
-    private PatientDTO generatePatientDTO() {
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setIdentifierType("1");
-        patientDTO.setIdentifierValue("9412126531");
-        patientDTO.setBirthDay("1994-12-12T17:05:45.678Z");
-        patientDTO.setGender("2");
-        patientDTO.setFirstName("Косара");
-        patientDTO.setLastname("Милкина");
-        patientDTO.setAddressCountry("BG");
-        patientDTO.setAddressCounty("SOF");
-        patientDTO.setAddressCity("Sofia");
-        return patientDTO;
+    private PatientDTO generatePatientDTO(String patientIdentifierValue) throws NoEntityFoundException {
+        return patientsDataService.getPatientByIdentifierValue(patientIdentifierValue);
     }
 
     private ObservableList<Entry> getIcdValues(String code) {
-        String regex = "O([0-9]{2}|[0-9]{1,2}\\.\\d)";
-        Pattern pattern = Pattern.compile(regex);
-        Predicate<String> matchesPattern = pattern.asPredicate();
+        String regexO = "O([0-9]{2}|[0-9]{1,2}\\.\\d)";
+        Pattern patternO = Pattern.compile(regexO);
+        Predicate<String> matchesPatternO = patternO.asPredicate();
+
+
+        String regexZ = "Z3[0-9](\\.\\d)?";
+        Pattern patternZ = Pattern.compile(regexZ);
+        Predicate<String> matchesPatternZ = patternZ.asPredicate();
 
         List<Entry> filteredEntries = fetchNomenclatures(code).stream()
-                .filter(entry -> matchesPattern.test(entry.getKey().getValue()))
+                .filter(entry -> matchesPatternO.test(entry.getKey().getValue()) || matchesPatternZ.test(entry.getKey().getValue()))
                 .collect(Collectors.toList());
         return FXCollections.observableArrayList(filteredEntries);
     }
@@ -121,5 +136,58 @@ public class NewExamController implements Initializable {
 
     private List<Entry> fetchNomenclatures(String nome) {
         return NomenclatureService.getInstance().getNomenclaturesForCode(nome);
+    }
+
+    private void checkDataForErrors() {
+        if (ICDCode.getValue() == null) {
+            throw new IllegalArgumentException("ICD Code is required");
+        }
+//        if (additionalIcdCode.getValue() == null) {
+//            throw new IllegalArgumentException("Additional ICD Code is required");
+//        }
+        if (diagnosisUse.getValue() == null) {
+            throw new IllegalArgumentException("Diagnosis Use is required");
+        }
+        if (diagnosisRank.getText().isEmpty()) {
+            throw new IllegalArgumentException("Diagnosis Rank is required");
+        }
+        if (clinicalStatus.getValue() == null) {
+            throw new IllegalArgumentException("Clinical Status is required");
+        }
+        if (verificationStatus.getValue() == null) {
+            throw new IllegalArgumentException("Verification Status is required");
+        }
+        if (notes.getText().isEmpty()) {
+            throw new IllegalArgumentException("Notes are required");
+        }
+//        if (purposeField.getValue() == null) {
+//            throw new IllegalArgumentException("Purpose Field is required");
+//        }
+        if (gestationalWeekField.getText().isEmpty()) {
+            throw new IllegalArgumentException("Gestational Week Field is required");
+        }
+        if (examStatusField.getText().isEmpty()) {
+            throw new IllegalArgumentException("Exam Status Field is required");
+        }
+        if (patientIdentifierValue.getText().isEmpty()) {
+            throw new IllegalArgumentException("Patient Identifier Value is required");
+        }
+    }
+
+    private void resetFields() {
+        ICDCode.setValue(null);
+        additionalIcdCode.setValue(null);
+        diagnosisUse.setValue(null);
+        diagnosisRank.setText("");
+        clinicalStatus.setValue(null);
+        verificationStatus.setValue(null);
+        notes.setText("");
+        isSecondaryField.setSelected(false);
+        purposeField.setValue(null);
+        gestationalWeekField.setText("");
+        isPregnantField.setSelected(false);
+        isBreastFeedingField.setSelected(false);
+        examStatusField.setText("");
+        patientIdentifierValue.setText("");
     }
 }

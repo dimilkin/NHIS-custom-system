@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 public class ExamDTO {
 
+    private String lrnExamination;
     private String nrnExamination;
     private String ICDCode;
     private String additionalIcdCode;
@@ -18,6 +19,16 @@ public class ExamDTO {
     private boolean isPregnantField;
     private boolean isBreastFeedingField;
     private String examStatusField;
+    private int examNHISStatusCode;
+
+
+    public String getLrnExamination() {
+        return lrnExamination;
+    }
+
+    public void setLrnExamination(String lrnExamination) {
+        this.lrnExamination = lrnExamination;
+    }
 
     public String getNrnExamination() {
         return nrnExamination;
@@ -129,5 +140,13 @@ public class ExamDTO {
 
     public void setExamStatusField(String examStatusField) {
         this.examStatusField = examStatusField;
+    }
+
+    public int getExamNHISStatusCode() {
+        return examNHISStatusCode;
+    }
+
+    public void setExamNHISStatusCode(int examNHISStatusCode) {
+        this.examNHISStatusCode = examNHISStatusCode;
     }
 }

@@ -25,14 +25,18 @@ public class CombinedViewController {
                 if ("new-exam".equals(newValue)) {
                     setCenterView("/fxml/NewExamination.fxml");
                 }
-                if ("new-patiient".equals(newValue)) {
+                if ("new-patient".equals(newValue)) {
                     setCenterView("/fxml/NewPatientDetails.fxml");
                 }
-                if ("all-patiients".equals(newValue)) {
+                if ("all-patients".equals(newValue)) {
                     setCenterView("/fxml/PatientsListDetails.fxml");
                 }
                 if ("all-exams".equals(newValue)) {
                     setCenterView("/fxml/ExamsList.fxml");
+                }
+
+                if ("settings".equals(newValue)) {
+                    setCenterView("/fxml/Settings.fxml");
                 }
             });
             combinedView.setLeft(sideMenu);

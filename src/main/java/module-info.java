@@ -16,6 +16,7 @@ module com.nzis.ignatovsoft {
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
     requires org.postgresql.jdbc;
+    requires java.desktop;
 
     opens com.nzis.ignatovsoft to javafx.fxml;
     opens com.nzis.ignatovsoft.nhis.models.nhis to jakarta.xml.bind;

@@ -2,6 +2,7 @@ package com.nzis.ignatovsoft.dtos;
 
 public class PatientDTO {
 
+    private long id;
     private String identifierType;
     private String identifierValue;
     private String birthDay;
@@ -27,6 +28,14 @@ public class PatientDTO {
         this.addressCountry = addressCountry;
         this.addressCounty = addressCounty;
         this.addressCity = addressCity;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getIdentifierType() {

@@ -12,4 +12,6 @@ public interface ExamsRepo {
     List<ExamDbModel> getFilteredExams(LocalDate startDate, LocalDate endDate);
 
     List<ExamDbModel> getFilteredExamsByIdentifier(String identifierValue);
+
+    void saveExam(ExamDbModel examDbModel);
 }

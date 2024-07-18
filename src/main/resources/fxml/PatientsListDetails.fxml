@@ -6,18 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<SplitPane dividerPositions="0.4412751677852349"
-           maxHeight="-Infinity"
-           maxWidth="-Infinity"
-           minHeight="-Infinity"
-           minWidth="-Infinity"
-           orientation="VERTICAL"
-           prefHeight="528.0"
-           prefWidth="653.0"
-           xmlns="http://javafx.com/javafx/21"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.nzis.ignatovsoft.front.controllers.PatientsListDetailsController"
-           stylesheets="@../styles/patient_list_details.css">
+<SplitPane dividerPositions="0.4412751677852349" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="528.0" prefWidth="653.0" stylesheets="@../styles/patient_list_details.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nzis.ignatovsoft.front.controllers.PatientsListDetailsController">
 
     <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="225.0" prefWidth="631.0">
@@ -30,12 +19,14 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="390.0">
                      <children>
-                        <Text fx:id="firstName" layoutX="93.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FirstName" styleClass="patient-text" />
-                        <Text fx:id="midName" layoutX="188.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MidtName" styleClass="patient-text"/>
-                        <Text fx:id="lastName" layoutX="272.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LasttName" styleClass="patient-text"/>
-                        <Text fx:id="identifier" layoutX="192.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identifier" styleClass="patient-text"/>
-                        <Text fx:id="address" layoutX="21.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AddressCountry, AddressCounty, AddressCity, AddresStreetSrt, AddresN" styleClass="patient-text" />
+                        <Text fx:id="firstName" layoutX="21.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="patient-text" />
+                        <Text fx:id="midName" layoutX="99.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="patient-text" />
+                        <Text fx:id="lastName" layoutX="182.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="patient-text" />
+                        <Text fx:id="identifier" layoutX="305.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="patient-text" />
+                        <Text fx:id="address" layoutX="21.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="patient-text" />
                         <Button fx:id="editButton" layoutX="198.0" layoutY="249.0" mnemonicParsing="false" text="Edit" />
+                        <Text layoutX="88.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text layoutX="273.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
