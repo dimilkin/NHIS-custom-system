@@ -4,6 +4,7 @@ import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,22 +36,27 @@ public class NomenclatureService {
         return instance;
     }
 
-    public ObservableList<Entry> getObservableNomenclatures(String code) {
-        return FXCollections.observableArrayList(getNomenclaturesForCode(code));
+    public ObservableList<Entry> getObservableNomenclatures(String nomeclatureClCode) {
+        return FXCollections.observableArrayList(getNomenclaturesForCode(nomeclatureClCode));
     }
 
-    public List<Entry> getNomenclaturesForCode(String code) {
-        if (nomenclaturesCache.containsKey(code)) {
-            return nomenclaturesCache.get(code);
+    public List<Entry> getNomenclaturesForCode(String nomeclatureClCode) {
+        if (nomenclaturesCache.containsKey(nomeclatureClCode)) {
+            return nomenclaturesCache.get(nomeclatureClCode);
         }
-        List<Entry> nomenclatures = networkService.getNomenclaturesC002(code).join();
-        nomenclaturesCache.put(code, nomenclatures);
+        List<Entry> nomenclatures = networkService.getNomenclaturesC002(nomeclatureClCode)
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    return Collections.emptyList();
+                })
+                .join();
+        nomenclaturesCache.put(nomeclatureClCode, nomenclatures);
         return nomenclatures;
     }
 
-    public Entry getCorrectValue(String keyValue, String code) {
-        for (Entry entry : getNomenclaturesForCode(code)) {
-            if (entry.getKey().getValue().equals(keyValue)) {
+    public Entry getCorrectValue(String termKey, String nomeclatureClCode) {
+        for (Entry entry : getNomenclaturesForCode(nomeclatureClCode)) {
+            if (entry.getKey().getValue().equals(termKey)) {
                 return entry;
             }
         }

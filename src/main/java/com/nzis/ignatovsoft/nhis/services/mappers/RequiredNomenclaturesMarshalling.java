@@ -4,13 +4,13 @@ import com.nzis.ignatovsoft.nhis.models.generated.Header;
 import com.nzis.ignatovsoft.nhis.models.generated.NomenclatureIdBase;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c001.ContentsC001;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c001.MessageC001;
+import com.nzis.ignatovsoft.nhis.services.HeadersGenerator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
 import java.io.StringWriter;
 
-import static com.nzis.ignatovsoft.nhis.services.HeadersGenerator.generateHeaders;
 
 public class RequiredNomenclaturesMarshalling {
 
@@ -27,7 +27,8 @@ public class RequiredNomenclaturesMarshalling {
 
     private String marshalRequestBody(String nomenclatureType) throws JAXBException {
 
-        Header header = generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_C001);
+        HeadersGenerator headersGenerator = new HeadersGenerator();
+        Header header =headersGenerator.generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_C001);
         ContentsC001 contents = generateContents(nomenclatureType);
 
         MessageC001 messageC001 = new MessageC001();

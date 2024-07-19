@@ -3,6 +3,7 @@ package com.nzis.ignatovsoft.nhis.services.mappers;
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
 import com.nzis.ignatovsoft.nhis.models.nhis.x003.*;
+import com.nzis.ignatovsoft.nhis.services.HeadersGenerator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -13,9 +14,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
-import static com.nzis.ignatovsoft.nhis.services.HeadersGenerator.generateHeaders;
 
 public class ExamClosingBodyX003Marshalling {
+
+    private HeadersGenerator headersGenerator = new HeadersGenerator();
 
     public ExamClosingBodyX003Marshalling() {
     }
@@ -30,7 +32,7 @@ public class ExamClosingBodyX003Marshalling {
 
     private String marshalRequestBody(ExamDTO examDTO) throws JAXBException {
         ContentsX003 body = generateContents(examDTO);
-        Header header = generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_X003);
+        Header header = headersGenerator.generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_X003);
         MessageX003 messageX003 = new MessageX003();
         messageX003.setContents(body);
         messageX003.setHeader(header);

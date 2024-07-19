@@ -1,11 +1,14 @@
 package com.nzis.ignatovsoft.nhis.services.mappers;
 
 import com.nzis.ignatovsoft.configurations.application.DoctorInfo;
+import com.nzis.ignatovsoft.database.localdb.models.PracticeInfo;
+import com.nzis.ignatovsoft.dataservices.SettingsDataService;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
 import com.nzis.ignatovsoft.nhis.models.nhis.x001.ContentsX001;
 import com.nzis.ignatovsoft.nhis.models.nhis.x001.Examination;
 import com.nzis.ignatovsoft.nhis.models.nhis.x001.MessageX001;
+import com.nzis.ignatovsoft.nhis.services.HeadersGenerator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -17,9 +20,10 @@ import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.UUID;
 
-import static com.nzis.ignatovsoft.nhis.services.HeadersGenerator.generateHeaders;
 
 public class InitialExamOpenerMarshaling {
+
+    HeadersGenerator headersGenerator = new HeadersGenerator();
 
     public InitialExamOpenerMarshaling() {
     }
@@ -35,7 +39,7 @@ public class InitialExamOpenerMarshaling {
     private String marshalRequestBody (PatientDTO patientDTO) throws DatatypeConfigurationException, JAXBException {
         ContentsX001 body = generateContents(patientDTO
         );
-        Header header = generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_X001);
+        Header header = headersGenerator.generateHeaders(HeadersInfoConstants.MESSAGE_TYPE_X001);
         MessageX001 messageX001 = new MessageX001();
         messageX001.setContents(body);
         messageX001.setHeader(header);
@@ -91,6 +95,8 @@ public class InitialExamOpenerMarshaling {
     private MedicalPractitionerWithAccompanying generatePerformer (DoctorInfo doctorInfo) {
         MedicalPractitionerWithAccompanying performer = new MedicalPractitionerWithAccompanying();
 
+        SettingsDataService settingsDataService = new SettingsDataService();
+        PracticeInfo practiceInfo  = settingsDataService.getSettings();
         EmailBase emailBase = new EmailBase();
         emailBase.setValue("test@test.abv.bg");
         performer.setEmail(emailBase);
@@ -102,18 +108,18 @@ public class InitialExamOpenerMarshaling {
         performer.setNhifNumber(null);
 
         PmiBase pmiBase = new PmiBase();
-        pmiBase.setValue(doctorInfo.getDoctorsId());
+        pmiBase.setValue(practiceInfo.getDoctorId());
         performer.setPmi(pmiBase);
 
         QualificationBase qualificationBase = new QualificationBase();
-        qualificationBase.setValue("1001");
+        qualificationBase.setValue(practiceInfo.getDoctorsQualification());
         qualificationBase.setNhifCode(null);
         performer.setQualification(qualificationBase);
 
         performer.setPmiDeputy(null);
 
         PracticeNumberBase practiceNumberBase = new PracticeNumberBase();
-        practiceNumberBase.setValue(doctorInfo.getDoctorsId());
+        practiceNumberBase.setValue(practiceInfo.getDoctorId());
         performer.setPracticeNumber(practiceNumberBase);
 
         performer.setRhifAreaNumber(null);

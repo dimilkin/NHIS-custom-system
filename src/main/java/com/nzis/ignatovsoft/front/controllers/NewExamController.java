@@ -4,6 +4,7 @@ import com.nzis.ignatovsoft.dataservices.ExamsDataService;
 import com.nzis.ignatovsoft.dataservices.PatientsDataService;
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
+import com.nzis.ignatovsoft.exceptions.NHISErrorException;
 import com.nzis.ignatovsoft.exceptions.NoEntityFoundException;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
 import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
@@ -84,7 +85,7 @@ public class NewExamController implements Initializable {
             resetFields();
         } catch (NoEntityFoundException e) {
             JOptionPane.showMessageDialog(null, "Не е намерен пациент със зададеното ЕГН", "Грешка", JOptionPane.ERROR_MESSAGE);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NHISErrorException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Грешка", JOptionPane.ERROR_MESSAGE);
         }
     }

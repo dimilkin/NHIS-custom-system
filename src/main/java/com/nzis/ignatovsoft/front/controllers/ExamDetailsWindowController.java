@@ -55,8 +55,8 @@ public class ExamDetailsWindowController implements Initializable {
     }
 
     private String getDiagnosisDescription(ExamDbModel examinationData) {
-        String diagnosisDescription = examinationData.getDiagnosis().getICDCode();
+        String diagnosisCode = examinationData.getDiagnosis().getICDCode();
         NomenclatureService nomenclatureService = NomenclatureService.getInstance();
-        return nomenclatureService.getCorrectValue(NomeConstants.ICD_CODES, diagnosisDescription).getDescription().getValue();
+        return nomenclatureService.getCorrectValue(diagnosisCode, NomeConstants.ICD_CODES).getDescription().getValue();
     }
 }

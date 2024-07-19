@@ -2,10 +2,12 @@ package com.nzis.ignatovsoft.nhis.services;
 
 import com.nzis.ignatovsoft.dtos.ExamDTO;
 import com.nzis.ignatovsoft.dtos.PatientDTO;
+import com.nzis.ignatovsoft.exceptions.NHISErrorException;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.MessageC002;
 import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
 import com.nzis.ignatovsoft.nhis.models.nhis.x002.MessageX002;
+import com.nzis.ignatovsoft.nhis.models.nhis.x099.MessageX099;
 import com.nzis.ignatovsoft.nhis.services.mappers.ExamClosingBodyX003Marshalling;
 import com.nzis.ignatovsoft.nhis.services.mappers.InitialExamOpenerMarshaling;
 import com.nzis.ignatovsoft.nhis.services.mappers.RequiredNomenclaturesMarshalling;
@@ -33,7 +35,7 @@ public class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public ContentsX002 sendExaminationOpenRequestX001(PatientDTO patientDTO) {
+    public ContentsX002 sendExaminationOpenRequestX001(PatientDTO patientDTO) throws NHISErrorException {
         InitialExamOpenerMarshaling initialExamOpenerMarshaling = new InitialExamOpenerMarshaling();
 
         try {
@@ -49,20 +51,31 @@ public class NetworkServiceImpl implements NetworkService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(MessageX002.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            MessageX002 message = (MessageX002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+            JAXBContext jaxbContext;
+            Unmarshaller jaxbUnmarshaller;
 
-            return message.getContents();
-
+            switch (response.statusCode()) {
+                case 200:
+                    jaxbContext = JAXBContext.newInstance(MessageX002.class);
+                    jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                    MessageX002 message = (MessageX002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    return message.getContents();
+                default:
+                    jaxbContext = JAXBContext.newInstance(MessageX099.class);
+                    jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                    MessageX099 errorMessage = (MessageX099) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    throw new NHISErrorException(errorMessage.getContents().getError().get(0).getReason().getValue());
+            }
         } catch (IOException | InterruptedException | JAXBException e) {
             e.printStackTrace();
             return null;
+        } catch (NHISErrorException e) {
+            throw new NHISErrorException(e.getMessage());
         }
     }
 
     @Override
-    public int sendExaminationCloseRequestX003(ExamDTO examDTO) {
+    public int sendExaminationCloseRequestX003(ExamDTO examDTO) throws NHISErrorException {
         ExamClosingBodyX003Marshalling examClosingBodyX003Marshalling = new ExamClosingBodyX003Marshalling();
 
         try {
@@ -79,10 +92,18 @@ public class NetworkServiceImpl implements NetworkService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            return response.statusCode();
+            switch (response.statusCode()) {
+                case 200:
+                   return 200;
+                default:
+                    JAXBContext jaxbContext = JAXBContext.newInstance(MessageX099.class);
+                    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                    MessageX099 errorMessage = (MessageX099) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    throw new NHISErrorException(errorMessage.getContents().getError().get(0).getReason().getValue());
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            throw new NHISErrorException(e.getMessage());
         }
     }
 
@@ -101,11 +122,20 @@ public class NetworkServiceImpl implements NetworkService {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(MessageC002.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            MessageC002 message = (MessageC002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
-
-            return CompletableFuture.completedFuture(message.getContents().getNomenclature().get(0).getEntry());
+            JAXBContext jaxbContext;
+            Unmarshaller jaxbUnmarshaller;
+            switch (response.statusCode()) {
+                case 200:
+                    jaxbContext = JAXBContext.newInstance(MessageC002.class);
+                    jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                    MessageC002 message = (MessageC002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    return CompletableFuture.completedFuture(message.getContents().getNomenclature().get(0).getEntry());
+                default:
+                    jaxbContext = JAXBContext.newInstance(MessageX099.class);
+                    jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                    MessageX099 errorMessage = (MessageX099) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    return CompletableFuture.failedFuture(new NHISErrorException(errorMessage.getContents().getError().get(0).getReason().getValue()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;

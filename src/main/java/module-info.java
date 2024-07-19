@@ -31,6 +31,7 @@ module com.nzis.ignatovsoft {
     opens com.nzis.ignatovsoft.nhis.models.nhis.x001 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
     opens com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c001 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
     opens com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.x099 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
 
     exports com.nzis.ignatovsoft;
     exports com.nzis.ignatovsoft.nhis.services;

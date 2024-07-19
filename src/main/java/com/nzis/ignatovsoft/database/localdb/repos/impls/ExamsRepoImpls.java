@@ -50,6 +50,7 @@ public class ExamsRepoImpls implements ExamsRepo {
             transaction = session.beginTransaction();
             session.persist(examDbModel);
             transaction.commit();
+            
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

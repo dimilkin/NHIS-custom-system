@@ -17,18 +17,17 @@ public class SettingsDataService {
         return settingsRepo.getSettingsById(1);
     }
 
-    public void updateSettings(String practiceName, String doctorsId, String doctorsQualification, String tokenPin) {
+    public boolean updateSettings(String practiceName, String doctorsId, String doctorsQualification, String tokenPin) {
         PracticeInfo practiceInfo = settingsRepo.getSettingsById(1);
         if (practiceInfo != null) {
             practiceInfo.setPracticeName(practiceName);
             practiceInfo.setDoctorId(doctorsId);
             practiceInfo.setDoctorsQualification(doctorsQualification);
             practiceInfo.setSignerPin(tokenPin);
-            settingsRepo.saveSettings(practiceInfo);
-            return;
+            return settingsRepo.saveSettings(practiceInfo);
         }
         practiceInfo = generatePracticeInfo(practiceName, doctorsId, doctorsQualification, tokenPin);
-        settingsRepo.saveSettings(practiceInfo);
+        return settingsRepo.saveSettings(practiceInfo);
     }
 
     private PracticeInfo generatePracticeInfo(String practiceName, String doctorsId, String doctorsQualification, String tokenPin) {

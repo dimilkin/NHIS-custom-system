@@ -8,18 +8,20 @@ import org.hibernate.Session;
 public class SettingsRepoImpl implements SettingsRepo {
 
     @Override
-    public void saveSettings(PracticeInfo practiceInfo) {
+    public boolean saveSettings(PracticeInfo practiceInfo) {
         Session session = null;
         try {
             session = HibernateConfigForLocalDB.getSessionFactoryForLocalDB().openSession();
             session.beginTransaction();
             session.merge(practiceInfo);
             session.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             if (session != null) {
                 session.getTransaction().rollback();
             }
-            e.printStackTrace();  // Log the exception
+            e.printStackTrace();
+            return false;
         } finally {
             if (session != null) {
                 session.close();

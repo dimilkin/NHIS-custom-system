@@ -63,7 +63,6 @@ public class ExamsDataService {
             PatientDbModel patientDbModel = patientsDataService.getPatientDbModelByIdentifierValue(patientIdentifierValue);
             examDbModel.setPatient(patientDbModel);
             examRepo.saveExam(examDbModel);
-            allExamsFromLocalDb.add(examDbModel);
         } catch (Exception e) {
             e.printStackTrace();
         }

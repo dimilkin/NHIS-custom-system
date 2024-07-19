@@ -1,8 +1,11 @@
 package com.nzis.ignatovsoft.nhis.services;
 
+import com.nzis.ignatovsoft.dataservices.SettingsDataService;
+import com.nzis.ignatovsoft.exceptions.NoPinProvidedException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.*;
 import javax.xml.crypto.dsig.dom.DOMSignContext;
@@ -34,19 +37,30 @@ import static com.nzis.ignatovsoft.Constants.pkcs11Path;
 
 public class DigitalSignatureImpl {
 
+    SettingsDataService settingsDataService;
+
     public DigitalSignatureImpl() {
+        settingsDataService = new SettingsDataService();
     }
 
     public String signXml(String document) {
         try {
             return signedXml(document);
+        } catch (NoPinProvidedException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Грешка", JOptionPane.ERROR_MESSAGE);
+            return "";
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
 
-    private String signedXml(String xmlDocument) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableEntryException, ParserConfigurationException, SAXException, MarshalException, XMLSignatureException, TransformerException {
+    private String signedXml(String xmlDocument) throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableEntryException, ParserConfigurationException, SAXException, MarshalException, XMLSignatureException, TransformerException, NoPinProvidedException {
+
+        String tokenPin = settingsDataService.getSettings().getSignerPin();
+        if (tokenPin == null || tokenPin.isEmpty()) {
+            throw new NoPinProvidedException("Не е намерен ПИН код. Моля въведете ПИН код в настройките.");
+        }
 
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
@@ -61,7 +75,8 @@ public class DigitalSignatureImpl {
         provider = provider.configure(pkcs11Path);
         Security.addProvider(provider);
 
-        char[] pin = {'1', '3', '1', '6'};
+//        char[] pin = {'1', '3', '1', '6'};
+        char[] pin = tokenPin.toCharArray();
         KeyStore ks = KeyStore.getInstance("PKCS11-MY");
         ks.load(null, pin);
 

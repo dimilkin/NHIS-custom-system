@@ -4,7 +4,7 @@ import com.nzis.ignatovsoft.database.localdb.models.PracticeInfo;
 
 public interface SettingsRepo {
 
-    void saveSettings(PracticeInfo practiceInfo);
+    boolean saveSettings(PracticeInfo practiceInfo);
 
     PracticeInfo getSettings();
 

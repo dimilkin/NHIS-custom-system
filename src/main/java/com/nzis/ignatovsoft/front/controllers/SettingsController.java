@@ -40,18 +40,22 @@ public class SettingsController implements Initializable {
             practiceName.setText(setField(settings.getPracticeName()));
             doctorsId.setText(setField(settings.getDoctorId()));
             tokenPin.setText(setField(settings.getSignerPin()));
-            doctorsQualification.setValue(nomenclatureService.getCorrectValue(NomeConstants.DOCTORS_QUALIFICATION, settings.getDoctorsQualification()));
+            doctorsQualification.setValue(nomenclatureService.getCorrectValue(settings.getDoctorsQualification(), NomeConstants.DOCTORS_QUALIFICATION));
         }
         doctorsQualification.setItems(nomenclatureService.getObservableNomenclatures(NomeConstants.DOCTORS_QUALIFICATION));
         saveButton.setOnMouseClicked(e -> {
-            updateSettings();
+            if (updateSettings()) {
+                saveButton.setStyle("-fx-background-color: #4CAF50");
+                saveButton.setText("Запазено");
+            }
         });
     }
 
-    private void updateSettings() {
+    private boolean updateSettings() {
         if (validateFields()) {
-            settingsDataService.updateSettings(practiceName.getText(), doctorsId.getText(), doctorsQualification.getValue().getKey().getValue(), tokenPin.getText());
+            return settingsDataService.updateSettings(practiceName.getText(), doctorsId.getText(), doctorsQualification.getValue().getKey().getValue(), tokenPin.getText());
         }
+        return false;
     }
 
     private boolean validateFields() {

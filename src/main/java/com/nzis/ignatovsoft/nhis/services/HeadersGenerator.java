@@ -1,6 +1,7 @@
 package com.nzis.ignatovsoft.nhis.services;
 
-import com.nzis.ignatovsoft.configurations.application.DoctorInfo;
+import com.nzis.ignatovsoft.database.localdb.models.PracticeInfo;
+import com.nzis.ignatovsoft.dataservices.SettingsDataService;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
 import com.nzis.ignatovsoft.nhis.services.mappers.HeadersInfoConstants;
 
@@ -9,8 +10,10 @@ import java.util.UUID;
 
 public class HeadersGenerator {
 
-    public static Header generateHeaders(String messageTypeValue) {
-        DoctorInfo doctorInfo = new DoctorInfo();
+    SettingsDataService settingsDataService = new SettingsDataService();
+    PracticeInfo practiceInfo = settingsDataService.getSettings();
+
+    public Header generateHeaders(String messageTypeValue) {;
         Header header = new Header();
 
         MessageSender sender = new MessageSender();
@@ -18,7 +21,7 @@ public class HeadersGenerator {
         header.setSender(sender);
 
         MessageSenderId senderId = new MessageSenderId();
-        senderId.setValue(doctorInfo.getDoctorsId());
+        senderId.setValue(practiceInfo.getDoctorId());
         header.setSenderId(senderId);
 
         MessageSenderISName senderISName = new MessageSenderISName();
@@ -48,7 +51,7 @@ public class HeadersGenerator {
         return header;
     }
 
-    private static String getRandomUUID () {
+    private static String getRandomUUID() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
