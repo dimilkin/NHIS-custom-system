@@ -14,15 +14,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class PatientsListDetailsController implements Initializable {
 
+    @FXML
+    public TextField identifierValueField;
+    @FXML
+    public Button filterButton;
     @FXML
     private ListView<PatientDbModel> patientsList;
     @FXML
@@ -50,6 +57,22 @@ public class PatientsListDetailsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadPatientData();
         editButton.setOnAction(e -> handleEditButtonAction());
+        filterButton.setOnAction(e -> filterPatientsByIdentifierValue());
+    }
+
+    private void filterPatientsByIdentifierValue() {
+        String identifierValue = identifierValueField.getText();
+        ObservableList<PatientDbModel> filteredPatients = FXCollections.observableArrayList();
+        if (identifierValue != null && !identifierValue.isEmpty()) {
+            List<PatientDbModel> allLocalDbPatients = patientsDataService.getAllLocalDbPatients();
+            allLocalDbPatients = allLocalDbPatients.stream()
+                    .filter(patient -> patient.getIdentifier().contains(identifierValue))
+                    .collect(Collectors.toList());
+            filteredPatients.addAll(allLocalDbPatients);
+            patientsList.setItems(filteredPatients);
+        } else {
+            patientsList.setItems(patientsDataService.getAllLocalDbPatients());
+        }
     }
 
     private void handleEditButtonAction() {

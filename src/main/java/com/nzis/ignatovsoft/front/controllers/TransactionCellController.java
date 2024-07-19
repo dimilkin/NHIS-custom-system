@@ -1,12 +1,13 @@
 package com.nzis.ignatovsoft.front.controllers;
 
-import com.nzis.ignatovsoft.front.models.Transaction;
+import com.nzis.ignatovsoft.database.localdb.models.ExamDbModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class TransactionCellController implements Initializable {
@@ -18,21 +19,28 @@ public class TransactionCellController implements Initializable {
     public Line transaction_cell_line_two;
     public AnchorPane transactionCellPane;
 
-    private final Transaction transaction;
+    private final ExamDbModel transaction;
 
-    public TransactionCellController(Transaction transaction) {
+    public TransactionCellController(ExamDbModel transaction) {
         this.transaction = transaction;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (!transaction.isTransactionSuccesful()){
+        if (transaction.getExamNHISStatusCode() != 200){
             transactionCellPane.setStyle("-fx-border-color: RED;");
         }
-        transaction_cell_first_name.setText(transaction.getName());
-        transaction_cell_family_name.setText(transaction.getFamilyName());
-        transaction_cell_date.setText(transaction.getDateOfExam());
-        transaction_cell_time.setText(transaction.getTimeOfExam());
+        transaction_cell_first_name.setText(transaction.getPatient().getFirstName());
+        transaction_cell_family_name.setText(transaction.getPatient().getLastName());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String transactionDate = transaction.getCloseDate().format(formatter);
+
+        DateTimeFormatter timeFormater = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String transactionTime = transaction.getCloseDate().format(timeFormater);
+
+        transaction_cell_date.setText(transactionDate);
+        transaction_cell_time.setText(transactionTime);
     }
 
 }

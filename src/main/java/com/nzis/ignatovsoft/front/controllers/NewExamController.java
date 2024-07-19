@@ -75,6 +75,7 @@ public class NewExamController implements Initializable {
     private void sendExamData(String patientIdentifierValue) {
         try {
             checkDataForErrors();
+            saveExamButton.setDisable(true);
             PatientDTO patientDTO = generatePatientDTO(patientIdentifierValue);
             ContentsX002 contentsX002 = networkService.sendExaminationOpenRequestX001(patientDTO);
             ExamDTO examDTO = generateExamDTO(contentsX002);
@@ -85,8 +86,10 @@ public class NewExamController implements Initializable {
             resetFields();
         } catch (NoEntityFoundException e) {
             JOptionPane.showMessageDialog(null, "Не е намерен пациент със зададеното ЕГН", "Грешка", JOptionPane.ERROR_MESSAGE);
+            saveExamButton.setDisable(false);
         } catch (IllegalArgumentException | NHISErrorException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Грешка", JOptionPane.ERROR_MESSAGE);
+            saveExamButton.setDisable(false);
         }
     }
 
@@ -190,5 +193,6 @@ public class NewExamController implements Initializable {
         isBreastFeedingField.setSelected(false);
         examStatusField.setText("");
         patientIdentifierValue.setText("");
+        saveExamButton.setDisable(false);
     }
 }

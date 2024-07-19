@@ -1,17 +1,17 @@
 package com.nzis.ignatovsoft.front.views;
 
+import com.nzis.ignatovsoft.database.localdb.models.ExamDbModel;
 import com.nzis.ignatovsoft.front.controllers.TransactionCellController;
 import com.nzis.ignatovsoft.front.events.TransactionEvent;
-import com.nzis.ignatovsoft.front.models.Transaction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 
 import java.io.IOException;
 
-public class TransactionCellFactory extends ListCell<Transaction> {
+public class TransactionCellFactory extends ListCell<ExamDbModel> {
 
     @Override
-    protected void updateItem(Transaction transaction, boolean empty) {
+    protected void updateItem(ExamDbModel transaction, boolean empty) {
         super.updateItem(transaction, empty);
         if (empty){
             setText(null);
@@ -38,7 +38,7 @@ public class TransactionCellFactory extends ListCell<Transaction> {
         }
     }
 
-    private void handleCellClick(Transaction transaction) {
+    private void handleCellClick(ExamDbModel transaction) {
     }
 
 }

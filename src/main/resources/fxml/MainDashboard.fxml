@@ -67,6 +67,6 @@
                 <Label fx:id="email" styleClass="details_text_field" text="Label" />
             </children>
         </VBox>
-        <Button fx:id="change_btn" contentDisplay="CENTER" layoutX="478.0" layoutY="562.0" mnemonicParsing="false" styleClass="edit_button" text="Промени" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+        <Button fx:id="cahngeButton" contentDisplay="CENTER" layoutX="478.0" layoutY="562.0" mnemonicParsing="false" styleClass="edit_button" text="Промени" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
     </children>
 </AnchorPane>

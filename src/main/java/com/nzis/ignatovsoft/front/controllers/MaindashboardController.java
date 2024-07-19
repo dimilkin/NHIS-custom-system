@@ -1,8 +1,9 @@
 package com.nzis.ignatovsoft.front.controllers;
 
+import com.nzis.ignatovsoft.database.localdb.models.ExamDbModel;
+import com.nzis.ignatovsoft.dataservices.ExamsDataService;
 import com.nzis.ignatovsoft.dataservices.TransactionsDataService;
 import com.nzis.ignatovsoft.front.events.TransactionEvent;
-import com.nzis.ignatovsoft.front.models.Transaction;
 import com.nzis.ignatovsoft.front.views.TransactionCellFactory;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 public class MaindashboardController implements Initializable {
 
     @FXML
-    private ListView<Transaction> transactionsList;
+    private ListView<ExamDbModel> transactionsList;
 
     @FXML
     private DatePicker dateFilter;
@@ -31,15 +32,17 @@ public class MaindashboardController implements Initializable {
     public Label diagnosis;
     public Label treatment;
     public Label email;
-    public Button change_btn;
+    public Button cahngeButton;
     private TransactionsDataService testDataService = new TransactionsDataService();
+    private ExamsDataService examsDataService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        transactionsList.setItems(testDataService.getAllTransactions());
+        examsDataService = new ExamsDataService();
+        transactionsList.setItems(examsDataService.getAllLocalDbExams());
         transactionsList.setCellFactory(e -> new TransactionCellFactory());
         transactionsList.addEventHandler(TransactionEvent.TRANSACTION_SELECTED, this::handleTransactionEvent);
-        change_btn.setOnMouseClicked(v -> {
+        cahngeButton.setOnMouseClicked(v -> {
             System.out.println("Not implemented yet");
         });
 
@@ -49,25 +52,22 @@ public class MaindashboardController implements Initializable {
     }
 
     private void filterTransactions(LocalDate date) {
-        ObservableList<Transaction> transactions = testDataService.getAllTransactions();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        ObservableList<Transaction> filteredTransactions = transactions.filtered(transaction -> {
-            LocalDate examDate = LocalDate.parse(transaction.getDateOfExam(), formatter);
-            return examDate.equals(date);
-        });
-        transactionsList.setItems(filteredTransactions);
+        ObservableList<ExamDbModel> transactions = examsDataService.getFilteredExams(date, LocalDate.now());
+        transactionsList.setItems(transactions);
     }
 
     private void handleTransactionEvent(TransactionEvent event) {
-        Transaction transaction = event.getTransaction();
-        selectedPatientName.setText(transaction.getName());
-        selectedPatientFamilyName.setText(transaction.getFamilyName());
-        examDate.setText(transaction.getDateOfExam());
-        phoneNumber.setText(transaction.getPhone());
-        diagnosis.setText(transaction.getDiagnosis());
-        treatment.setText(transaction.getProcedure());
-        email.setText(transaction.getAddress());
+        ExamDbModel transaction = event.getTransaction();
+        selectedPatientName.setText(transaction.getPatient().getFirstName());
+        selectedPatientFamilyName.setText(transaction.getPatient().getLastName());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String transactionDate = transaction.getCloseDate().format(formatter);
+        examDate.setText(transactionDate);
+
+        phoneNumber.setText(transaction.getPatient().getPhone());
+        diagnosis.setText(transaction.getDiagnosis().getICDCode());
+        treatment.setText(transaction.getDiagnosis().getNotes());
+        email.setText(transaction.getExamStatus());
     }
 }
