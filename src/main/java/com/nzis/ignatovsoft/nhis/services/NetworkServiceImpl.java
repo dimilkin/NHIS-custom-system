@@ -5,8 +5,10 @@ import com.nzis.ignatovsoft.dtos.PatientDTO;
 import com.nzis.ignatovsoft.exceptions.NHISErrorException;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.MessageC002;
-import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
-import com.nzis.ignatovsoft.nhis.models.nhis.x002.MessageX002;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.r099.MessageR099;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.x002.ContentsX002V2;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.x002.MessageX002V2;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.x004.MessageX004V2;
 import com.nzis.ignatovsoft.nhis.models.nhis.x099.MessageX099;
 import com.nzis.ignatovsoft.nhis.services.mappers.ExamClosingBodyX003Marshalling;
 import com.nzis.ignatovsoft.nhis.services.mappers.InitialExamOpenerMarshaling;
@@ -35,7 +37,7 @@ public class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public ContentsX002 sendExaminationOpenRequestX001(PatientDTO patientDTO) throws NHISErrorException {
+    public ContentsX002V2 sendExaminationOpenRequestX001(PatientDTO patientDTO) throws NHISErrorException {
         InitialExamOpenerMarshaling initialExamOpenerMarshaling = new InitialExamOpenerMarshaling();
 
         try {
@@ -43,7 +45,7 @@ public class NetworkServiceImpl implements NetworkService {
             String signedRequest = digitalSignee.signXml(requestPayload);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://ptest-api.his.bg/v2/eexamination/examination/open"))
+                    .uri(URI.create("https://ptest-api.his.bg/v3/eexamination/examination/open"))
                     .header("Content-Type", "application/xml")
                     .header("Authorization", "Bearer " + authService.getAccessToken())
                     .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
@@ -56,15 +58,15 @@ public class NetworkServiceImpl implements NetworkService {
 
             switch (response.statusCode()) {
                 case 200:
-                    jaxbContext = JAXBContext.newInstance(MessageX002.class);
+                    jaxbContext = JAXBContext.newInstance(MessageX002V2.class);
                     jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-                    MessageX002 message = (MessageX002) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    MessageX002V2 message = (MessageX002V2) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
                     return message.getContents();
                 default:
-                    jaxbContext = JAXBContext.newInstance(MessageX099.class);
+                    jaxbContext = JAXBContext.newInstance(MessageR099.class);
                     jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-                    MessageX099 errorMessage = (MessageX099) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
-                    throw new NHISErrorException(errorMessage.getContents().getError().get(0).getReason().getValue());
+                    MessageR099 errorMessage = (MessageR099) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    throw new NHISErrorException(errorMessage.getContents().get(0).getReason().getValue());
             }
         } catch (IOException | InterruptedException | JAXBException e) {
             e.printStackTrace();
@@ -84,7 +86,7 @@ public class NetworkServiceImpl implements NetworkService {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://ptest-api.his.bg/v2/eexamination/examination/close"))
+                    .uri(URI.create("https://ptest-api.his.bg/v3/eexamination/examination/close"))
                     .header("Content-Type", "application/xml")
                     .header("Authorization", "Bearer " + authService.getAccessToken())
                     .POST(HttpRequest.BodyPublishers.ofString(signedRequest))
@@ -94,12 +96,15 @@ public class NetworkServiceImpl implements NetworkService {
 
             switch (response.statusCode()) {
                 case 200:
-                   return 200;
-                default:
-                    JAXBContext jaxbContext = JAXBContext.newInstance(MessageX099.class);
+                    JAXBContext jaxbContext = JAXBContext.newInstance(MessageX004V2.class);
                     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-                    MessageX099 errorMessage = (MessageX099) jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
-                    throw new NHISErrorException(errorMessage.getContents().getError().get(0).getReason().getValue());
+                    jaxbUnmarshaller.unmarshal(new StringReader(response.body()));
+                    return 200;
+                default:
+                    JAXBContext errorContext = JAXBContext.newInstance(MessageR099.class);
+                    Unmarshaller errorUnmarshaller = errorContext.createUnmarshaller();
+                    MessageR099 errorMessage = (MessageR099) errorUnmarshaller.unmarshal(new StringReader(response.body()));
+                    throw new NHISErrorException(errorMessage.getContents().get(0).getReason().getValue());
             }
         } catch (Exception e) {
             e.printStackTrace();

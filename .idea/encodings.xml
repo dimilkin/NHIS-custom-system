@@ -3,7 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/nzis/ignatovsoft/models/generated" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/nzis/ignatovsoft/models/tets2" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/nzis/ignatovsoft/nhis/models/generated" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/nzis/ignatovsoft/tets2" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

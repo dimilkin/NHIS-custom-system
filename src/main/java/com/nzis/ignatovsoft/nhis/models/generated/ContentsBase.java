@@ -11,7 +11,6 @@ package com.nzis.ignatovsoft.nhis.models.generated;
 import java.io.Serializable;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -37,9 +36,6 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "contentsBase")
-@XmlSeeAlso({
-    ContentsS001 .class
-})
 public class ContentsBase
     implements Serializable
 {

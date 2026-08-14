@@ -3,6 +3,10 @@ package com.nzis.ignatovsoft.nhis.services;
 import com.nzis.ignatovsoft.database.localdb.models.PracticeInfo;
 import com.nzis.ignatovsoft.dataservices.SettingsDataService;
 import com.nzis.ignatovsoft.nhis.models.generated.*;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.common.DateTimeValueBase;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.common.IntValueBase;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.common.MessageHeaderV3;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.common.StringValueBase;
 import com.nzis.ignatovsoft.nhis.services.mappers.HeadersInfoConstants;
 
 import java.util.Calendar;
@@ -47,6 +51,21 @@ public class HeadersGenerator {
         MessageCreatedOn createdOn = new MessageCreatedOn();
         createdOn.setValue(Calendar.getInstance());
         header.setCreatedOn(createdOn);
+
+        return header;
+    }
+
+    public MessageHeaderV3 generateHeadersV3(String messageTypeValue) {
+        MessageHeaderV3 header = new MessageHeaderV3();
+
+        header.setSender(new IntValueBase(Integer.parseInt(HeadersInfoConstants.SENDER_TYPE)));
+        header.setSenderId(new StringValueBase(practiceInfo.getDoctorId()));
+        header.setSenderISName(new StringValueBase("IgnatovSoft"));
+        header.setRecipient(new IntValueBase(Integer.parseInt(HeadersInfoConstants.RECIPIENT)));
+        header.setRecipientId(new StringValueBase(HeadersInfoConstants.RECIPIENT_ID));
+        header.setMessageId(new StringValueBase(getRandomUUID()));
+        header.setMessageType(new StringValueBase(messageTypeValue));
+        header.setCreatedOn(new DateTimeValueBase(Calendar.getInstance()));
 
         return header;
     }

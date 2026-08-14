@@ -7,7 +7,7 @@ import com.nzis.ignatovsoft.dtos.PatientDTO;
 import com.nzis.ignatovsoft.exceptions.NHISErrorException;
 import com.nzis.ignatovsoft.exceptions.NoEntityFoundException;
 import com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002.Entry;
-import com.nzis.ignatovsoft.nhis.models.nhis.x002.ContentsX002;
+import com.nzis.ignatovsoft.nhis.models.nhis.v3.x002.ContentsX002V2;
 import com.nzis.ignatovsoft.nhis.services.NetworkService;
 import com.nzis.ignatovsoft.nhis.services.NetworkServiceImpl;
 import com.nzis.ignatovsoft.nhis.services.NomenclatureService;
@@ -77,7 +77,7 @@ public class NewExamController implements Initializable {
             checkDataForErrors();
             saveExamButton.setDisable(true);
             PatientDTO patientDTO = generatePatientDTO(patientIdentifierValue);
-            ContentsX002 contentsX002 = networkService.sendExaminationOpenRequestX001(patientDTO);
+            ContentsX002V2 contentsX002 = networkService.sendExaminationOpenRequestX001(patientDTO);
             ExamDTO examDTO = generateExamDTO(contentsX002);
             int response = networkService.sendExaminationCloseRequestX003(examDTO);
             examDTO.setExamNHISStatusCode(response);
@@ -93,7 +93,7 @@ public class NewExamController implements Initializable {
         }
     }
 
-    private ExamDTO generateExamDTO(ContentsX002 contentsX002) {
+    private ExamDTO generateExamDTO(ContentsX002V2 contentsX002) {
         ExamDTO examDTO = new ExamDTO();
 
         examDTO.setNrnExamination(contentsX002.getNrnExamination().getValue());

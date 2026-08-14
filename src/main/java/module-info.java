@@ -19,25 +19,26 @@ module com.nzis.ignatovsoft {
     requires java.desktop;
 
     opens com.nzis.ignatovsoft to javafx.fxml;
-    opens com.nzis.ignatovsoft.nhis.models.nhis to jakarta.xml.bind;
     opens com.nzis.ignatovsoft.nhis.services to javafx.fxml;
     opens com.nzis.ignatovsoft.nhis.models.nhis.auth to jakarta.xml.bind;
     opens com.nzis.ignatovsoft.nhis.models.generated to org.glassfish.jaxb.runtime;
     opens com.nzis.ignatovsoft.database.localdb.models to org.hibernate.orm.core;
     opens com.nzis.ignatovsoft.database.astraiadb.models to org.hibernate.orm.core;
     opens com.nzis.ignatovsoft.front.controllers to javafx.fxml;
-    opens com.nzis.ignatovsoft.nhis.models.nhis.x003 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
-    opens com.nzis.ignatovsoft.nhis.models.nhis.x002 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
-    opens com.nzis.ignatovsoft.nhis.models.nhis.x001 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
     opens com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c001 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
     opens com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c002 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
     opens com.nzis.ignatovsoft.nhis.models.nhis.x099 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.v3.common to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.v3.x001 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.v3.x002 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.v3.x003 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.v3.x004 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
+    opens com.nzis.ignatovsoft.nhis.models.nhis.v3.r099 to jakarta.xml.bind, org.glassfish.jaxb.runtime;
 
     exports com.nzis.ignatovsoft;
     exports com.nzis.ignatovsoft.nhis.services;
     exports com.nzis.ignatovsoft.front.models;
     exports com.nzis.ignatovsoft.front.controllers;
-    exports com.nzis.ignatovsoft.nhis.models.nhis;
     exports com.nzis.ignatovsoft.nhis.models.generated;
     exports com.nzis.ignatovsoft.dtos;
     exports com.nzis.ignatovsoft.nhis.models.nhis.nomenclatures.c001;
